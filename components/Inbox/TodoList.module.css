@@ -1,0 +1,212 @@
+
+.todoListRoot {
+	background:#f7f1f1;
+	font-size:1.1rem;
+	font-family:'Quicksand', sans-serif;
+	height:100%;
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+
+@keyframes strikeitem {
+	to { width:calc(100% + 1rem); }
+}
+
+.todolist {
+  margin: 4rem auto;
+  padding: 2rem 3rem 3rem;
+  max-width: 1200px;
+  background: #FF6666;
+  color: #FFF;
+  box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
+  overflow: auto; /* Add this line */
+}
+
+
+.todolist h1 {
+   
+    font-weight:normal;
+    font-size:2.6rem;
+    letter-spacing:0.05em;
+    border-bottom:1px solid rgba(255,255,255,.3); 
+}
+.todolist h1 span {
+	display:block;
+	font-size:0.8rem;
+	margin-bottom:0.7rem;
+	margin-left:3px;
+	margin-top:0.2rem;   
+}
+
+.todolist .emptylist {
+	margin-top:2.6rem;
+	text-align:center;
+	letter-spacing:.05em;
+	font-style:italic;
+	opacity:0.8;
+	
+}
+.todolist ul {
+	margin-top:2.6rem;
+	list-style:none;
+}
+.todolist .todolist-move {
+	transition: transform 1s;
+}
+.todolist li {
+	/* display:flex; */
+	margin:0 -3rem 4px;
+	padding:1.1rem 3rem;
+	justify-content:space-between;
+	align-items:center;
+	background:rgba(255,255,255,0.1);
+}
+
+.tasksListWrapper {
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.addNewTaskWrapper {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  right: 3rem;
+}
+
+ .actions {
+	flex-shrink:0;
+	padding-left:0.7em;
+}
+.label {
+	position:relative;
+	transition:opacity .2s linear;
+}
+ .done .label {
+	opacity:.6;
+}
+.done .label:before {
+	content:'';
+	position:absolute;
+	top:50%;
+	left:-.5rem;
+	display:block;
+	width:0%;
+	height:1px;
+	background:#FFF;
+	animation:strikeitem .3s ease-out 0s forwards;
+}
+ .btnPicto {
+	border:none;
+	background:none;
+	-webkit-appearance:none;
+	cursor:pointer;
+	color:#FFF;
+	padding: .5rem;
+}
+
+
+
+.form {
+	margin-top:3rem;
+	display:flex;
+	flex-direction: column;
+}
+.formLabel {
+	min-width:100%;
+	margin:.5rem 0;
+	font-size:1.3rem;
+	padding-top: .5rem;
+}
+.formInput {
+	flex-grow:1;
+	border:none;
+	background:#f7f1f1;
+	padding:0 1.5em;
+	font-size:initial;
+}
+.formButton {
+	padding:0 1.3rem;
+	border:none;
+	background:#FF6666;
+	color:white;
+	text-transform:uppercase;
+	font-weight:bold;
+	border:1px solid rgba(255,255,255,.3);
+	margin-left:5px;
+	cursor:pointer;
+	transition:background .2s ease-out;
+}
+.formButton:hover {
+	background:#FF5E5E;
+}
+.formInput, 
+.formButton {
+	font-family:'Quicksand', sans-serif;
+	height:3rem;
+	margin-top: .5rem;
+}
+
+.formSubmitBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.taskContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  background-color: #2f22bc;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: .5rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.btnPicto {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.btnPicto:focus {
+  outline: none;
+}
+
+
+.datePickerWrapper {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+}
+
+.react-datepicker__time-container {
+  width: 100px;
+}
