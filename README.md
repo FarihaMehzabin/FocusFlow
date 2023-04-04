@@ -1,4 +1,4 @@
-# Inbox Section 
+# Inbox Section
 
 This app is built using Next.js, React, and CSS Modules. The app allows users to add, edit, and delete tasks. Each task can be associated with categories.
 
@@ -20,10 +20,10 @@ This app is built using Next.js, React, and CSS Modules. The app allows users to
   - `Task.js`: Component for displaying a single task
   - `Inbox.js`: Component for displaying the list of tasks
 - `/hooks`: Contains custom hooks for state management and fetching data
-  - `useFetchTodos.js`: Hook for fetching todos from the API
-  - `useInboxState.js`: Hook for managing the state of the todos
+  - `usefetchTasks.js`: Hook for fetching Tasks from the API
+  - `useInboxState.js`: Hook for managing the state of the Tasks
 - `/services`: Contains API services for the app
-  - `todoService.js`: Functions for making API calls to manage todos
+  - `Taskservice.js`: Functions for making API calls to manage Tasks
 - `/styles`: Contains CSS Modules for styling the components
 
 ## Getting Started
