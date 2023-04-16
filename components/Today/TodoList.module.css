@@ -1,29 +1,29 @@
 .todoListRoot {
-  background: #f7f1f1;
-  font-size: 1.1rem;
-  font-family: "Quicksand", sans-serif;
-  height: 100vh; /* change this to 100vh */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow:scroll;
-  
+	background:#f7f1f1;
+	font-size:1.1rem;
+	font-family:'Quicksand', sans-serif;
+	height:100vh;
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	overflow:scroll;
 }
 
+
 .todolist {
-  margin: 0; /* remove margin */
+  margin: 0;
   padding: 2rem 3rem 3rem;
-  width: 100%; /* change this to a percentage of the screen width */
-  background: #FF6666;
+  width: 100%;
+  background: #4A90E2;
   color: #FFF;
   box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
- 
 }
+
 
 .todolistSecondPart{
 	margin: 0; /* remove margin */
   width: 100%; /* change this to a percentage of the screen width */
-  background: #FF6666;
+  background: #4A90E2;
   color: #FFF;
   box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
   display: flex; /* add display flex */
@@ -36,9 +36,7 @@
 	flex: 2;
 }
 
-
 .todolist h1 {
-   
     font-weight:normal;
     font-size:2.6rem;
     letter-spacing:0.05em;
@@ -58,8 +56,8 @@
 	letter-spacing:.05em;
 	font-style:italic;
 	opacity:0.8;
-	
 }
+
 .todolist ul {
 	margin-top:2.6rem;
 	list-style:none;
@@ -89,7 +87,7 @@
   right: 3rem;
 }
 
- .actions {
+.actions {
 	flex-shrink:0;
 	padding-left:0.7em;
 }
@@ -97,7 +95,7 @@
 	position:relative;
 	transition:opacity .2s linear;
 }
- .done .label {
+.done .label {
 	opacity:.6;
 }
 .done .label:before {
@@ -111,7 +109,7 @@
 	background:#FFF;
 	animation:strikeitem .3s ease-out 0s forwards;
 }
- .btnPicto {
+.btnPicto {
 	border:none;
 	background:none;
 	-webkit-appearance:none;
@@ -119,8 +117,6 @@
 	color:#FFF;
 	padding: .5rem;
 }
-
-
 
 .form {
 	margin-top:3rem;
@@ -146,7 +142,7 @@
 .formButton {
 	padding:0 1.3rem;
 	border:none;
-	background:#FF6666;
+	background:#4A90E2;
 	color:white;
 	text-transform:uppercase;
 	font-weight:bold;
@@ -156,81 +152,79 @@
 	transition:background .2s ease-out;
 }
 .formButton:hover {
-	background:#FF5E5E;
+	background:#3A7ACF;
 }
 .formInput, 
 .formButton {
 	font-family:'Quicksand', sans-serif;
 	height:3rem;
-	margin-top: .5rem;
+    margin-top: .5rem;
 }
 
 .formSubmitBtn {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+display: flex;
+justify-content: center;
+margin-top: 1rem;
 }
 
-
 .taskItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
 }
 
 .taskContent {
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 }
 
 .categories {
-  display: flex;
-  flex-wrap: wrap;
+display: flex;
+flex-wrap: wrap;
 }
 
 .category {
-  background-color: #2f22bc;
-  border-radius: 4px;
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-top: .5rem;
+background-color: #2f22bc;
+border-radius: 4px;
+padding: 0.25rem 0.5rem;
+margin-right: 0.5rem;
+margin-bottom: 0.5rem;
+margin-top: .5rem;
 }
 
 .actions {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 .btnPicto {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0 0.25rem;
-  font-size: 1.25rem;
-  cursor: pointer;
+background: none;
+border: none;
+padding: 0;
+margin: 0 0.25rem;
+font-size: 1.25rem;
+cursor: pointer;
 }
 
 .btnPicto:focus {
-  outline: none;
+outline: none;
 }
 
-
 .datePickerWrapper {
-  position: relative;
-  z-index: 1000;
-  width: 100%;
+position: relative;
+z-index: 1000;
+width: 100%;
 }
 
 .react-datepicker__time-container {
-  width: 100px;
+width: 100px;
 }
 
 .taskItem .actions {
-  position: relative;
+position: relative;
 }
 
 .dropdownContainer {
-  position: absolute;
+position: absolute;
 }

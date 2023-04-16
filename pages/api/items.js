@@ -19,7 +19,7 @@ let items = [
     label: "Learn something else",
     done: false,
     categories: ["Task"],
-    reminder: { date: new Date().toISOString(), time: null }, // Add reminder object with current date
+    reminder: { date: new Date().toISOString(), time: null }, 
   },
 ];
 

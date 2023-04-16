@@ -1,12 +1,12 @@
 import { useFetchTodos } from "./hooks/useFetchTodos";
-import { useInboxState } from "./hooks/useInboxState";
-import AddToInbox from "./AddToInbox";
+import { useTodayState } from "./hooks/useTodayState";
+import AddToToday from "./AddToToday";
 import Task from "./Task";
 import styles from "./TodoList.module.css";
 
-const Inbox = () => {
+const Today = () => {
   const { todo, setTodo, loading } = useFetchTodos();
-  const { addTodo, deleteTodo, editTodo } = useInboxState(todo, setTodo);
+  const { addTodo, deleteTodo, editTodo } = useTodayState(todo, setTodo);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -15,12 +15,11 @@ const Inbox = () => {
   return (
     <div className={`${styles.todoListRoot} ${styles.todolist}`}>
       <h1>
-        Inbox
-        <span>Add all your random thoughts here!</span>
+        Today
+        <span>Add all the tasks you want to complete today!</span>
       </h1>
-
       <div className={`${styles.todolistSecondPart}`}>
-        <AddToInbox addItem={addTodo} />
+        <AddToToday addItem={addTodo} />
 
         <ul>
           {todo.map((item) => (
@@ -41,4 +40,4 @@ const Inbox = () => {
   );
 };
 
-export default Inbox;
+export default Today;

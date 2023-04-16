@@ -6,50 +6,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import EditModal from "./EditModal";
 
 const Task = ({ item, deleteItem, editItem }) => {
-  // const handleEdit = () => {
-  //   const newLabel = prompt("Edit the task:", item.label);
-  //   if (newLabel) {
-  //    const newCategories = prompt(
-  //      "Edit categories (separated by spaces):",
-  //      item.categories.join(" ")
-  //    );
-  //    const updatedCategories =
-  //      newCategories.trim() !== "" ? newCategories.split(" ") : ["Task"];
-  //    editItem({ ...item, label: newLabel, categories: updatedCategories });
-  //   }
-  // };
-
-
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleEdit = () => {
     setShowEditModal(true);
   };
-
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [reminderDate, setReminderDate] = useState(
-    item.reminderDate ? new Date(item.reminderDate) : null
-  );
-
-  const handleSetReminder = (date) => {
-    setReminderDate(date);
-    setShowDatePicker(false);
-    const updatedItem = {
-      ...item,
-      reminder: { date: date.toISOString(), time: format(date, "HH:mm") },
-    };
-    editItem(updatedItem);
-  };
-
-  const formattedTime = item.reminder.time
-    ? format(parse(item.reminder.time, "HH:mm", new Date()), "h:mm a")
-    : "";
-
-  const reminderDateTime = item.reminder.date
-    ? `${format(new Date(item.reminder.date), "PP")} at ${formattedTime}`
-    : "Not Set";
-
-      console.log(reminderDateTime)
 
   return (
     <li className={styles.taskItem}>
@@ -62,30 +23,8 @@ const Task = ({ item, deleteItem, editItem }) => {
             </span>
           ))}
         </div>
-        <div className={styles.reminder}>
-          <span>
-            Reminder: {reminderDateTime ? reminderDateTime : "Not Set"}
-          </span>
-        </div>
       </div>
       <div className={styles.actions}>
-        <button
-          className={styles.btnPicto}
-          onClick={() => setShowDatePicker(!showDatePicker)}
-        >
-          📅
-        </button>
-        {showDatePicker && (
-          <div className={styles.datePickerWrapper}>
-            <DatePicker
-              selected={reminderDate}
-              onChange={handleSetReminder}
-              showTimeSelect
-              dateFormat="Pp"
-              inline
-            />
-          </div>
-        )}
         <button
           className={styles.btnPicto}
           type="button"

@@ -1,0 +1,113 @@
+.timer {
+    margin: 50px auto 0;
+    background-color: rgb(53, 218, 163);
+    border-radius: 10px;
+    padding: 10px 0 20px;
+}
+
+.buttons {
+    width: fit-content;
+    margin: auto;
+}
+
+.button {
+    float: left;
+    margin: 5px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 7px;
+}
+
+.countdown {
+    clear: both;
+    width: fit-content;
+    margin: auto;
+    font-size: 90px;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.startBtn {
+    width: 40px;
+    margin: 10px auto 0;
+    padding: 10px 30px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(41, 235, 170);
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(41, 235, 170);
+}
+
+.currentTaskDisplay {
+    width: 100%;
+    padding-top: 30px;
+    margin: auto;
+    text-align: center;
+}
+
+.tasksContainer {
+    margin: auto;
+}
+
+/* ul {
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    padding: 20px 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+} */
+
+.right {
+    float: right;
+}
+
+.deleteBtn {
+    padding: 10px;
+    background-color: rgb(41, 235, 170);
+    color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+.customTime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.customTime label {
+  margin-right: 10px;
+}
+
+.customTime input {
+  margin-right: 10px;
+  width: 60px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.customTime button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.customTime button:hover {
+  background-color: #45a049;
+}
