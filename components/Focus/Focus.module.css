@@ -1,97 +1,73 @@
 .timer {
-    margin: 50px auto 0;
-    background-color: rgb(53, 218, 163);
-    border-radius: 10px;
-    padding: 10px 0 20px;
+  background: linear-gradient(white,rgb(156, 156, 233));
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttons {
-    width: fit-content;
-    margin: auto;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
 .button {
-    float: left;
-    margin: 5px;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 7px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: #d7e3f0;
+  color: #3d5170;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #c4d2e7;
 }
 
 .countdown {
-    clear: both;
-    width: fit-content;
-    margin: auto;
-    font-size: 90px;
-    font-weight: 500;
-    padding: 20px;
+  font-size: 60px;
+  font-weight: 500;
+  color: #3d5170;
+  margin-bottom: 40px;
 }
 
 .startBtn {
-    width: 40px;
-    margin: 10px auto 0;
-    padding: 10px 30px;
-    border-radius: 10px;
-    text-align: center;
-    background-color: rgb(41, 235, 170);
-    cursor: pointer;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background-color: #62a8ea;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.startBtn:hover {
+  background-color: #508fde;
 }
 
 .selected {
-    background-color: rgb(41, 235, 170);
+  background-color: #62a8ea;
+  color: #ffffff;
 }
-
-.currentTaskDisplay {
-    width: 100%;
-    padding-top: 30px;
-    margin: auto;
-    text-align: center;
-}
-
-.tasksContainer {
-    margin: auto;
-}
-
-/* ul {
-    padding: 0;
-}
-
-li {
-    list-style-type: none;
-    padding: 20px 10px;
-    margin-bottom: 5px;
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-} */
-
-.right {
-    float: right;
-}
-
-.deleteBtn {
-    padding: 10px;
-    background-color: rgb(41, 235, 170);
-    color: white;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
 
 .customTime {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
 .customTime label {
-  margin-right: 10px;
+  font-weight: bold;
+  color: #3d5170;
 }
 
 .customTime input {
-  margin-right: 10px;
   width: 60px;
   text-align: center;
   padding: 5px;
@@ -104,8 +80,10 @@ li {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .customTime button:hover {

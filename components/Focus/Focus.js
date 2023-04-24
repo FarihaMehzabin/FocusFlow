@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Focus.module.css";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { countdown, reset } from "./utils/FocusUtils";
 
 const Focus = () => {
@@ -7,6 +9,9 @@ const Focus = () => {
   const [seconds, setSeconds] = useState(0);
   const [pause, setPause] = useState(true);
   const [timerType, setTimerType] = useState("Pomodoro");
+  const [initialTime, setInitialTime] = useState(25 * 60);
+
+
 
   useEffect(() => {
     if (!pause) {
@@ -23,7 +28,9 @@ const Focus = () => {
   const handleCustomTime = () => {
     setPause(true);
     setTimerType("Custom");
-    setMinutes(parseInt(inputMinutes, 10));
+    const customMinutes = parseInt(inputMinutes, 10);
+    setInitialTime(customMinutes * 60);
+    setMinutes(customMinutes);
     setSeconds(0);
   };
 
@@ -35,6 +42,7 @@ const Focus = () => {
   const handleTimerType = (type, mins) => {
     setPause(true);
     setTimerType(type);
+    setInitialTime(mins * 60);
     setMinutes(mins);
     setSeconds(0);
   };
@@ -64,7 +72,7 @@ const Focus = () => {
           }`}
           onClick={() => handleTimerType("Pomodoro", 25)}
         >
-          Pomodoro
+          Work
         </div>
         <div
           className={`${styles.button} ${
@@ -84,9 +92,23 @@ const Focus = () => {
         </div>
       </div>
       <div className={styles.countdown}>
-        {`${minutes < 10 ? "0" : ""}${minutes}:${
-          seconds < 10 ? "0" : ""
-        }${seconds}`}
+        <CircularProgressbar
+          value={((minutes * 60 + seconds) / initialTime) * 100}
+          text={`${minutes < 10 ? "0" : ""}${minutes}:${
+            seconds < 10 ? "0" : ""
+          }${seconds}`}
+          strokeWidth={5}
+          styles={{
+            path: {
+              stroke: "#62a8ea",
+            },
+            text: {
+              fontSize: "20px",
+              fontWeight: 500,
+              fill: "#3d5170",
+            },
+          }}
+        />
       </div>
       <div className={styles.startBtn} onClick={handleStartPause}>
         {pause ? "Start" : "Pause"}

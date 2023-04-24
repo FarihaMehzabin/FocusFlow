@@ -1,28 +1,52 @@
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import { format, parse } from "date-fns";
 import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-import EditModal from "./EditModal";
+
 
 const Task = ({ item, deleteItem, editItem }) => {
-  const [showEditModal, setShowEditModal] = useState(false);
+   const [editing, setEditing] = useState(false);
+  const [editedLabel, setEditedLabel] = useState(item.label);
+  const [editedCategories, setEditedCategories] = useState(
+    item.categories.join(" ")
+  );
+
 
   const handleEdit = () => {
-    setShowEditModal(true);
+    if (editing) {
+      const newCategories =
+        editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
+      editItem({ ...item, label: editedLabel, categories: newCategories });
+    }
+    setEditing(!editing);
   };
 
   return (
     <li className={styles.taskItem}>
       <div className={styles.taskContent}>
-        <span className={styles.label}>{item.label}</span>
-        <div className={styles.categories}>
-          {item.categories.map((category, index) => (
-            <span key={index} className={styles.category}>
-              {category}
-            </span>
-          ))}
-        </div>
+        {editing ? (
+          <input
+            type="text"
+            value={editedLabel}
+            onChange={(e) => setEditedLabel(e.target.value)}
+          />
+        ) : (
+          <span className={styles.label}>{item.label}</span>
+        )}
+        {editing ? (
+          <input
+            type="text"
+            value={editedCategories}
+            onChange={(e) => setEditedCategories(e.target.value)}
+          />
+        ) : (
+          <div className={styles.categories}>
+            {item.categories.map((category, index) => (
+              <span key={index} className={styles.category}>
+                {category}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.actions}>
         <button
@@ -45,18 +69,10 @@ const Task = ({ item, deleteItem, editItem }) => {
             title="Edit"
           >
             <i aria-hidden="true" className="material-icons">
-              ✍️
+              {editing ? "💾" : "✍️"}
             </i>
           </button>
-          {showEditModal && (
-            <div className={styles.dropdownContainer}>
-              <EditModal
-                item={item}
-                editItem={editItem}
-                closeModal={() => setShowEditModal(false)}
-              />
-            </div>
-          )}
+          
         </div>
       </div>
     </li>

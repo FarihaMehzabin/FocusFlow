@@ -5,22 +5,33 @@ import styles from "./Sidebar.module.css";
 const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
+      <div className={styles.title}>
+        FocusFlow
+        <ion-icon
+          name="timer-outline"
+          className={styles.icon} // Add this className to your ion-icon element
+        ></ion-icon>
+      </div>
+      <hr className={styles.hr} />
       <ul>
         <li>
           <Link href="/sections/inbox" className={styles.link}>
-            Inbox
+            Inbox 💭
           </Link>
         </li>
+        <hr className={styles.hr} />
         <li>
           <Link href="/sections/today" className={styles.link}>
-            Today
+            Today 📆
           </Link>
         </li>
+        <hr className={styles.hr} />
         <li>
           <Link href="/sections/focus" className={styles.link}>
-            Focus
+            Focus ⏰
           </Link>
         </li>
+        <hr className={styles.hr} />
         <li>
           <a className={styles.link}>Zen Zone</a>
         </li>

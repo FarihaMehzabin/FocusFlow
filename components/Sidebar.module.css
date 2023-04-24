@@ -6,11 +6,14 @@
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 0;
-
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar ul{
+.sidebar ul {
   list-style: none;
+  margin-top: 1.5rem;
+  flex-grow: 1;
 }
 
 .link {
@@ -19,17 +22,46 @@
   font-weight: bold;
   padding: 0.5rem 0;
   display: block;
-  transition: color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  border-radius: 4px;
+  padding-left: 1rem;
 }
 
 .link:hover {
   color: #ecf0f1;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .link.active {
   color: #ecf0f1;
   border-left: 4px solid #3498db;
   padding-left: 0.5rem;
+}
+
+.title {
+  color: #ecf0f1;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* margin-bottom: 1rem; */
+  font-family: "Signika Negative";
+  margin-left: 1.2rem;
+  
+}
+
+
+/* Add this new class to your Sidebar.module.css file */
+.icon {
+  font-size: 1.1rem;
+  color: #95a5a6;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+
+.hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+  margin: 1rem 0;
 }

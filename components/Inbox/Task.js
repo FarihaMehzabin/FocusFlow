@@ -3,27 +3,24 @@ import DatePicker from "react-datepicker";
 import { format, parse } from "date-fns";
 import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-import EditModal from "./EditModal";
+
 
 const Task = ({ item, deleteItem, editItem }) => {
-  // const handleEdit = () => {
-  //   const newLabel = prompt("Edit the task:", item.label);
-  //   if (newLabel) {
-  //    const newCategories = prompt(
-  //      "Edit categories (separated by spaces):",
-  //      item.categories.join(" ")
-  //    );
-  //    const updatedCategories =
-  //      newCategories.trim() !== "" ? newCategories.split(" ") : ["Task"];
-  //    editItem({ ...item, label: newLabel, categories: updatedCategories });
-  //   }
-  // };
 
+  const [editing, setEditing] = useState(false);
+  const [editedLabel, setEditedLabel] = useState(item.label);
+  const [editedCategories, setEditedCategories] = useState(
+    item.categories.join(" ")
+  );
 
-  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleEdit = () => {
-    setShowEditModal(true);
+    if (editing) {
+      const newCategories =
+        editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
+      editItem({ ...item, label: editedLabel, categories: newCategories });
+    }
+    setEditing(!editing);
   };
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -54,14 +51,30 @@ const Task = ({ item, deleteItem, editItem }) => {
   return (
     <li className={styles.taskItem}>
       <div className={styles.taskContent}>
-        <span className={styles.label}>{item.label}</span>
-        <div className={styles.categories}>
-          {item.categories.map((category, index) => (
-            <span key={index} className={styles.category}>
-              {category}
-            </span>
-          ))}
-        </div>
+        {editing ? (
+          <input
+            type="text"
+            value={editedLabel}
+            onChange={(e) => setEditedLabel(e.target.value)}
+          />
+        ) : (
+          <span className={styles.label}>{item.label}</span>
+        )}
+        {editing ? (
+          <input
+            type="text"
+            value={editedCategories}
+            onChange={(e) => setEditedCategories(e.target.value)}
+          />
+        ) : (
+          <div className={styles.categories}>
+            {item.categories.map((category, index) => (
+              <span key={index} className={styles.category}>
+                {category}
+              </span>
+            ))}
+          </div>
+        )}
         <div className={styles.reminder}>
           <span>
             Reminder: {reminderDateTime ? reminderDateTime : "Not Set"}
@@ -106,18 +119,10 @@ const Task = ({ item, deleteItem, editItem }) => {
             title="Edit"
           >
             <i aria-hidden="true" className="material-icons">
-              ✍️
+              {editing ? "💾" : "✍️"}
             </i>
           </button>
-          {showEditModal && (
-            <div className={styles.dropdownContainer}>
-              <EditModal
-                item={item}
-                editItem={editItem}
-                closeModal={() => setShowEditModal(false)}
-              />
-            </div>
-          )}
+          
         </div>
       </div>
     </li>
