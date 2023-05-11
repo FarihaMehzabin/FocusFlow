@@ -12,7 +12,6 @@ const Focus = () => {
   const [initialTime, setInitialTime] = useState(25 * 60);
 
 
-
   useEffect(() => {
     if (!pause) {
       const cleanup = countdown(setMinutes, setSeconds, pause, () =>

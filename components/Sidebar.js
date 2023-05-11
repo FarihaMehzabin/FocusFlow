@@ -9,7 +9,7 @@ const Sidebar = () => {
         FocusFlow
         <ion-icon
           name="timer-outline"
-          className={styles.icon} // Add this className to your ion-icon element
+          className={styles.icon} 
         ></ion-icon>
       </div>
       <hr className={styles.hr} />
@@ -29,6 +29,12 @@ const Sidebar = () => {
         <li>
           <Link href="/sections/focus" className={styles.link}>
             Focus ⏰
+          </Link>
+        </li>
+        <hr className={styles.hr} />
+        <li>
+          <Link href="/sections/journal" className={styles.link}>
+           Journal 📔
           </Link>
         </li>
         <hr className={styles.hr} />
