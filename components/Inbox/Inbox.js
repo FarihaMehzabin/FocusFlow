@@ -3,6 +3,8 @@ import { useInboxState } from "./hooks/useInboxState";
 import AddToInbox from "./AddToInbox";
 import Task from "./Task";
 import styles from "./TodoList.module.css";
+import Sidebar from "/components/Sidebar";
+import Image from "next/image"; 
 
 const Inbox = () => {
   const { todo, setTodo, loading } = useFetchTodos();
@@ -13,29 +15,35 @@ const Inbox = () => {
   }
 
   return (
-    <div className={`${styles.todoListRoot} ${styles.todolist}`}>
-      <h1>
-        Inbox
-        <span>Add all your random thoughts here!</span>
-      </h1>
+    <div className={`${styles.Root}`}>
+      <Sidebar />
+      <div className={`${styles.todoListRoot} ${styles.todolist}`}>
+        <Image
+          src="/Inbox.svg" // Path to your image
+          alt="Inbox Logo" // Alt text for the image
+          width={140} // Width of the image
+          height={140} // Height of the image
+        />
+        <p>Add all your random thoughts here!</p>
 
-      <div className={`${styles.todolistSecondPart}`}>
-        <AddToInbox addItem={addTodo} />
+        <div className={`${styles.todolistSecondPart}`}>
+          <AddToInbox addItem={addTodo} />
 
-        <ul>
-          {todo.map((item) => (
-            <Task
-              key={item.id}
-              item={item}
-              deleteItem={deleteTodo}
-              editItem={editTodo}
-            />
-          ))}
-        </ul>
+          <ul>
+            {todo.map((item) => (
+              <Task
+                key={item.id}
+                item={item}
+                deleteItem={deleteTodo}
+                editItem={editTodo}
+              />
+            ))}
+          </ul>
 
-        {todo.length === 0 && (
-          <p className={styles.emptyList}>Your todo list is empty.</p>
-        )}
+          {todo.length === 0 && (
+            <p className={styles.emptyList}>Your todo list is empty.</p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import { useTodayState } from "./hooks/useTodayState";
 import AddToToday from "./AddToToday";
 import Task from "./Task";
 import styles from "./TodoList.module.css";
+import Sidebar from "/components/Sidebar";
+import Image from "next/image"; 
 
 const Today = () => {
   const { todo, setTodo, loading } = useFetchTodos();
@@ -13,28 +15,35 @@ const Today = () => {
   }
 
   return (
-    <div className={`${styles.todoListRoot} ${styles.todolist}`}>
-      <h1>
-        Today
-        <span>Add all the tasks you want to complete today!</span>
-      </h1>
-      <div className={`${styles.todolistSecondPart}`}>
-        <AddToToday addItem={addTodo} />
+    <div className={styles.Root}>
+      <Sidebar />
+      <div className={`${styles.todoListRoot} ${styles.todolist}`}>
+        <Image
+          src="/Today.svg" // Path to your image
+          alt="Today Logo" // Alt text for the image
+          width={140} // Width of the image
+          height={140} // Height of the image
+        />
+        <p>Add all the tasks you want to complete today!</p>
 
-        <ul>
-          {todo.map((item) => (
-            <Task
-              key={item.id}
-              item={item}
-              deleteItem={deleteTodo}
-              editItem={editTodo}
-            />
-          ))}
-        </ul>
+        <div className={`${styles.todolistSecondPart}`}>
+          <AddToToday addItem={addTodo} />
 
-        {todo.length === 0 && (
-          <p className={styles.emptyList}>Your todo list is empty.</p>
-        )}
+          <ul>
+            {todo.map((item) => (
+              <Task
+                key={item.id}
+                item={item}
+                deleteItem={deleteTodo}
+                editItem={editTodo}
+              />
+            ))}
+          </ul>
+
+          {todo.length === 0 && (
+            <p className={styles.emptyList}>Your todo list is empty.</p>
+          )}
+        </div>
       </div>
     </div>
   );

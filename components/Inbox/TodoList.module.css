@@ -1,5 +1,10 @@
+
+.Root{
+	display: flex;
+	
+}
+
 .todoListRoot {
-  background: #f7f1f1;
   font-size: 1.1rem;
   font-family: "Quicksand", sans-serif;
   height: 100vh; /* change this to 100vh */
@@ -11,19 +16,21 @@
 }
 
 .todolist {
+	  font-family: 'Playfair Display', serif;
+
   margin: 0; /* remove margin */
   padding: 2rem 3rem 3rem;
   width: 100%; /* change this to a percentage of the screen width */
-  background: #FF6666;
+  background: linear-gradient(#0CA6BC, #071E53);
   color: #FFF;
-  box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
+  
  
 }
 
 .todolistSecondPart{
-	margin: 0; /* remove margin */
+	margin: 2rem 0; /* remove margin */
   width: 100%; /* change this to a percentage of the screen width */
-  background: #FF6666;
+  background: #071E53;
   color: #FFF;
   box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
   display: flex; /* add display flex */
@@ -68,8 +75,7 @@
 	transition: transform 1s;
 }
 .todolist li {
-	/* display:flex; */
-	margin:0 -3rem 4px;
+	
 	padding:1.1rem 3rem;
 	justify-content:space-between;
 	align-items:center;

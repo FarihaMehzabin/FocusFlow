@@ -1,11 +1,17 @@
+.Root{
+  display: flex;
+  font-family: 'Playfair Display', serif;
+}
+
 .timer {
-  background: linear-gradient(white,rgb(184, 220, 246));
+  background: #0CA6BC;
   padding: 20px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex: auto;
 }
 
 .buttons {
@@ -17,8 +23,8 @@
 .button {
   padding: 8px 12px;
   border-radius: 20px;
-  background-color: #d7e3f0;
-  color: #3d5170;
+  background-color: #071E53;
+  color: #ffffff;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
@@ -38,7 +44,7 @@
 .startBtn {
   padding: 10px 30px;
   border-radius: 20px;
-  background-color: #62a8ea;
+  background-color: #071E53;
   color: #ffffff;
   cursor: pointer;
   font-weight: bold;
@@ -50,7 +56,7 @@
 }
 
 .selected {
-  background-color: #62a8ea;
+  background-color: #8d62ea;
   color: #ffffff;
 }
 
@@ -64,7 +70,7 @@
 
 .customTime label {
   font-weight: bold;
-  color: #3d5170;
+  color: #ffffff;
 }
 
 .customTime input {
@@ -77,7 +83,7 @@
 
 .customTime button {
   padding: 5px 10px;
-  background-color: #4caf50;
+  background-color: #15348b;
   color: white;
   border: none;
   border-radius: 20px;

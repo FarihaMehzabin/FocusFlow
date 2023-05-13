@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { Button, Container } from "react-bootstrap";
 import styles from "./Journal.module.css";
+import Sidebar from "/components/Sidebar";
 
 export default function Home() {
   return (
-    <>
+    <div className={styles.Root}>
+      <Sidebar />
       <div
         className="d-flex flex-column align-items-center justify-content-center min-vh-100"
-        style={{ backgroundColor: "#4F4E68" }}
+        style={{ backgroundColor: "#0CA6BC", flex: "auto" }}
       >
         <div className={styles.book}>
           <span className={`${styles.page} ${styles.turn}`}></span>
@@ -49,6 +51,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

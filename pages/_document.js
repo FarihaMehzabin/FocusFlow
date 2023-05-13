@@ -1,5 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -8,8 +7,13 @@ export default function Document() {
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha384-4lE7hM8l9g9e2QgXn0mU8ruAsPI6L7U6gaGp/VxtyB6iS/6TqU6f3XBS3e4sQLO4"
           crossOrigin="anonymous"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Signika+Negative:wght@500&display=swap"
+          rel="stylesheet"
         />
       </Head>
       <body>

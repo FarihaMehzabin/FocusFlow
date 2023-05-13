@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "../UserContext";
 import Link from "next/link";
 import styles from "./Sidebar.module.css";
+import Image from "next/image";
 
-const Sidebar = () => {
+const Sidebar = ({ isLoggedIn }) => {
+  const { username } = useContext(UserContext);
+  console.log(username)
   return (
     <div className={styles.sidebar}>
       <div className={styles.title}>
-        FocusFlow
-        <ion-icon
-          name="timer-outline"
-          className={styles.icon} 
-        ></ion-icon>
+        <Image
+          src="/TaskEase.svg" // Path to your image
+          alt="TaskEase Logo" // Alt text for the image
+          width={140} // Width of the image
+          height={40} // Height of the image
+        />
       </div>
+      <p>{username}</p>
       <hr className={styles.hr} />
       <ul>
         <li>
@@ -34,7 +40,7 @@ const Sidebar = () => {
         <hr className={styles.hr} />
         <li>
           <Link href="/sections/journal" className={styles.link}>
-           Journal 📔
+            Journal 📔
           </Link>
         </li>
         <hr className={styles.hr} />
@@ -45,5 +51,6 @@ const Sidebar = () => {
     </div>
   );
 };
+
 
 export default Sidebar;
