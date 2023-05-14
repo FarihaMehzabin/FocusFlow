@@ -31,19 +31,19 @@ CREATE TABLE `session` (
   `user_id` int DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `tasks` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
+  `categories` varchar(255) DEFAULT NULL,
   `section_status` varchar(255) DEFAULT NULL COMMENT 'which section it belongs to',
-  `due_date` date DEFAULT NULL,
+  `reminder` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
