@@ -1,23 +1,66 @@
 import React, { useContext } from "react";
 import UserContext from "../UserContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "./Sidebar.module.css";
 import Image from "next/image";
+import Cookies from "js-cookie";
 
 const Sidebar = ({ isLoggedIn }) => {
-  const { username } = useContext(UserContext);
-  console.log(username)
+  const { username, setUsername } = useContext(UserContext);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+
+    const guid = Cookies.get('session')
+    const response = await fetch("http://127.0.0.1:8080/user/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ guid }),
+    });
+   
+
+     const data = await response.json();
+
+     console.log(data);
+
+       if (data.signout_status) {
+      Cookies.remove("session");
+      setUsername(null);
+      router.push("/login"); // redirect to login page
+    } else {
+      console.error(data.message);
+    }
+  };
+
+     
+ 
+
+ 
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.title}>
         <Image
-          src="/TaskEase.svg" // Path to your image
-          alt="TaskEase Logo" // Alt text for the image
-          width={140} // Width of the image
-          height={40} // Height of the image
+          src="/TaskEase.svg"
+          alt="TaskEase Logo"
+          width={140}
+          height={40}
         />
       </div>
-      <p>{username}</p>
+      {username ? (
+        <>
+          <div className={styles.username}>
+            <p>User: {username}</p>
+          </div>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            Logout
+          </button>
+        </>
+      ) : null}
       <hr className={styles.hr} />
       <ul>
         <li>
@@ -51,6 +94,5 @@ const Sidebar = ({ isLoggedIn }) => {
     </div>
   );
 };
-
 
 export default Sidebar;

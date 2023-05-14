@@ -5,7 +5,7 @@ from flask_api import status
 
 from models import SignupRequestDataModel , SignupResponseModel, LoginRequestDataModel, LoginResponseModel, SignoutResponseModel
 
-from services import UserLoginService, UserSignupService, SessionService, CookieService, UserSignoutService
+from services import UserLoginService, UserSignupService, SessionService, CookieService, UserSignoutService, TaskService
 
 config = {
     "DEBUG": True,  # some Flask specific configs
@@ -102,23 +102,26 @@ def check_cookie_validity_comp(guid):
         response = session_service.check_session_user(guid)
 
         # Return the response data as JSON
-        return jsonify(valid = response.session_valid)
+        return jsonify(valid = response.session_valid, user_id = response.user_id)
 
     except Exception as err:
         print(traceback.format_exc())
         return jsonify({"error": "An unexpected error occurred. Please contact the support team."}), 500
 
 
-# main script
-@app.route("/user/signout", methods=["POST"])
+@app.route("/user/logout", methods=["POST", "OPTIONS"])
 def sign_out():
+    if request.method == "OPTIONS":  # Respond to CORS preflight request
+        return _build_cors_preflight_response()
+
     try:
         request_data = request.get_json()
+        
         if not request_data:
-            return jsonify(error="Request body is empty or not in JSON format."), 400
+            return _corsify_actual_response(jsonify(error="Request body is empty or not in JSON format.")), 400
         guid = request_data.get("guid")
         if not guid:
-            return jsonify(error="GUID is not provided."), 400
+            return _corsify_actual_response(jsonify(error="GUID is not provided.")), 400
         
         signout_service = UserSignoutService()
 
@@ -126,15 +129,61 @@ def sign_out():
         signout_response = signout_service.user_signout(guid)
         
         # Create a response data model object with the signout response
-        response_data = SignoutResponseModel(signout_response.signout_status, signout_response.message)
+        response_data = SignoutResponseModel(signout_response[0], signout_response[1])
 
         # Return the response data as JSON
-        return jsonify(response_data.to_dict())
+        return _corsify_actual_response(jsonify(response_data.to_dict()))
 
     except Exception as err:
         print(traceback.format_exc())
-        return jsonify({"error": "An unexpected error occurred. Please contact the support team."}), 500
+        return _corsify_actual_response(jsonify({"error": "An unexpected error occurred. Please contact the support team."})), 500
 
+
+@app.route('/tasks', methods=['GET', 'POST', 'DELETE'])
+def handle_tasks():
+    try:
+    
+        task_service = TaskService()
+        
+        if request.method == 'GET':
+            user_id = request.args.get('user_id')
+            
+            print(f"i am here {user_id}")
+            
+            response = task_service.get_tasks(user_id)
+            
+            return response
+
+        elif request.method == 'POST':
+            new_task = {
+                "title": request.json.get('title'),
+                "section_status": "Inbox",
+                "categories": request.json.get('categories', ["Task"]),
+                "reminder": {
+                    "date": request.json.get('reminder', {}).get('date'),
+                },
+                "created_at": request.json.get('created_at'),
+                "user_id": request.json.get('user_id')
+            }
+            
+            response = task_service.add_tasks(new_task)
+            
+            if response:
+                return jsonify(message = "New task added", id = response), 201
+            
+            return jsonify(message = "Failed to add new task"), 201
+        
+        elif request.method == 'DELETE':
+            task_id = request.args.get('task_id')
+            
+            response = task_service.delete_task(task_id)
+            
+            if response:
+                return jsonify(message = "Task deleted")
+            
+    
+    except Exception as err:
+        print(traceback.format_exc())
 
 def _build_cors_preflight_response():
     response = make_response()

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Image from "next/image";
+import styles from "./LoginForm.module.css";
 
 const SignupForm = ({ onSignup }) => {
   const [username, setUsername] = useState("");
@@ -34,44 +36,67 @@ const SignupForm = ({ onSignup }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        id="username"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+    <div className={styles.loginRoot}>
+      <Image
+        src="/TaskEase.svg" // Path to your image
+        alt="TaskEase Logo" // Alt text for the image
+        width={340} // Width of the image
+        height={240} // Height of the image
       />
-      <label htmlFor="firstName">First Name:</label>
-      <input
-        id="firstName"
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <label htmlFor="lastName">Last Name:</label>
-      <input
-        id="lastName"
-        type="text"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <label htmlFor="email">Email:</label>
-      <input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <label htmlFor="password">Password:</label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Signup</button>
-    </form>
+      <div className={`container ${styles.loginContainer}`}>
+        <h1 className={styles.loginTitle}>Signup</h1>
+        <form onSubmit={handleSubmit} className={`mt-5 ${styles.loginForm}`}>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              id="firstName"
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              id="lastName"
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" className={styles.loginButton}>
+            Signup
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

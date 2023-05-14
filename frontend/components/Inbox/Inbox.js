@@ -6,9 +6,14 @@ import styles from "./TodoList.module.css";
 import Sidebar from "/components/Sidebar";
 import Image from "next/image"; 
 
-const Inbox = () => {
-  const { todo, setTodo, loading } = useFetchTodos();
+const Inbox = ({ user_id }) => {
+  const { todo, setTodo, loading } = useFetchTodos(user_id);
   const { addTodo, deleteTodo, editTodo } = useInboxState(todo, setTodo);
+
+
+  console.log("Reached inbox component and user_id is", user_id);
+
+  console.log("inbox component list of todos: ", todo)
 
   if (loading) {
     return <p>Loading...</p>;
@@ -27,15 +32,18 @@ const Inbox = () => {
         <p>Add all your random thoughts here!</p>
 
         <div className={`${styles.todolistSecondPart}`}>
-          <AddToInbox addItem={addTodo} />
-
+          <AddToInbox
+            addItem={(newItem, categories) =>
+              addTodo(newItem, categories, user_id)
+            }
+          />
           <ul>
             {todo.map((item) => (
               <Task
                 key={item.id}
                 item={item}
-                deleteItem={deleteTodo}
-                editItem={editTodo}
+                deleteItem={(item) => deleteTodo(item, user_id)}
+                editItem={(item) => editTodo(item, user_id)}
               />
             ))}
           </ul>

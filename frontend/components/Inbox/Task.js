@@ -10,43 +10,42 @@ const Task = ({ item, deleteItem, editItem }) => {
   const [editing, setEditing] = useState(false);
   const [editedLabel, setEditedLabel] = useState(item.label);
   const [editedCategories, setEditedCategories] = useState(
-    item.categories.join(" ")
+    item.categories ? item.categories.join(" ") : ""
   );
+
+  console.log(item)
 
 
   const handleEdit = () => {
     if (editing) {
       const newCategories =
         editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
-      editItem({ ...item, label: editedLabel, categories: newCategories });
+      editItem({ ...item, title: editedLabel, categories: newCategories });
     }
     setEditing(!editing);
   };
 
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [reminderDate, setReminderDate] = useState(
-    item.reminderDate ? new Date(item.reminderDate) : null
+  const [reminder, setReminder] = useState(
+    item.reminder ? new Date(item.reminder) : null
   );
 
   const handleSetReminder = (date) => {
-    setReminderDate(date);
+    setReminder(date);
     setShowDatePicker(false);
     const updatedItem = {
       ...item,
-      reminder: { date: date.toISOString(), time: format(date, "HH:mm") },
+      reminder: { date: date.toISOString() },
     };
     editItem(updatedItem);
   };
 
-  const formattedTime = item.reminder.time
-    ? format(parse(item.reminder.time, "HH:mm", new Date()), "h:mm a")
-    : "";
 
-  const reminderDateTime = item.reminder.date
-    ? `${format(new Date(item.reminder.date), "PP")} at ${formattedTime}`
+  const reminderDate = item.reminder
+    ? `${format(new Date(item.reminder), "PP")}`
     : "Not Set";
 
-      console.log(reminderDateTime)
+      console.log(reminderDate)
 
   return (
     <li className={styles.taskItem}>
@@ -58,7 +57,7 @@ const Task = ({ item, deleteItem, editItem }) => {
             onChange={(e) => setEditedLabel(e.target.value)}
           />
         ) : (
-          <span className={styles.label}>{item.label}</span>
+          <span className={styles.label}>{item.title}</span>
         )}
         {editing ? (
           <input
@@ -77,7 +76,7 @@ const Task = ({ item, deleteItem, editItem }) => {
         )}
         <div className={styles.reminder}>
           <span>
-            Reminder: {reminderDateTime ? reminderDateTime : "Not Set"}
+            Reminder: {reminderDate ? reminderDate : "Not Set"}
           </span>
         </div>
       </div>
@@ -93,7 +92,6 @@ const Task = ({ item, deleteItem, editItem }) => {
             <DatePicker
               selected={reminderDate}
               onChange={handleSetReminder}
-              showTimeSelect
               dateFormat="Pp"
               inline
             />

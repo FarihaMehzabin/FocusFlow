@@ -1,15 +1,16 @@
 import { parseCookies } from "nookies";
 import Inbox from "../components/Inbox/Inbox";
+import React, { useState, useContext } from "react";
 
-export default function Home({ isLoggedIn }) {
+export default function Home({ isLoggedIn, user_id }) {
 
-  console.log(isLoggedIn)
+  console.log("Islogged in ",isLoggedIn)
 
   if (!isLoggedIn) {
     return <h1>You must be logged in to view this page</h1>;
   }
 
-  return <Inbox />;
+  return <Inbox user_id={user_id}/>;
 }
 
 export async function getServerSideProps(context) {
@@ -30,6 +31,8 @@ export async function getServerSideProps(context) {
   );
   const data = await res.json();
 
+  console.log("data received", data)
+
   if (!data.valid) {
     // Redirect to login page if the GUID is not valid
     return {
@@ -38,9 +41,10 @@ export async function getServerSideProps(context) {
         permanent: false,
       },
     };
+
   }
 
   return {
-    props: { isLoggedIn: true }, // Will be passed to the page component as props
+    props: { isLoggedIn: true, user_id: data.user_id }, // Will be passed to the page component as props
   };
 }

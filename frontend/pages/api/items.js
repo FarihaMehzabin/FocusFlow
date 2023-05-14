@@ -1,60 +1,62 @@
-
-let items = [
-  {
-    id: 1,
-    label: "Learn VueJs",
-    done: false,
-    categories: ["Task"],
-    reminder: { date: new Date().toISOString(), time: null }, // Add reminder object with current date
-  },
-  {
-    id: 2,
-    label: "Code a todo list",
-    done: false,
-    categories: ["Task"],
-    reminder: { date: new Date().toISOString(), time: null }, // Add reminder object with current date
-  },
-  {
-    id: 3,
-    label: "Learn something else",
-    done: false,
-    categories: ["Task"],
-    reminder: { date: new Date().toISOString(), time: null }, 
-  },
-];
-
 export default async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
     case "GET":
-      res.status(200).json(items);
+      const response = await fetch(
+        `http://localhost:8080/tasks?user_id=${req.query.user_id}`
+      );
+      const data = await response.json();
+      res.status(200).json(data);
+
+      console.log("Fetched tasks ", data)
+
       break;
+
     case "POST":
       const newItem = {
-        id: Math.floor(Math.random() * 9999) + 10,
-        label: req.body.label,
-        done: false,
+        title: req.body.title,
+        section_status: "Inbox",
         categories: req.body.categories || ["Task"],
         reminder: {
           date: req.body.reminder?.date || null,
           time: req.body.reminder?.time || "09:00",
         },
+        created_at: new Date().toISOString().replace('T', ' ').slice(0, 19),
+        user_id: req.body.user_id,
       };
-      items.push(newItem);
-      res.status(201).json(newItem);
+      const postResponse = await fetch("http://localhost:8080/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem),
+      });
+      const postResult = await postResponse.json();
+      res.status(201).json(postResult);
       break;
     case "PUT":
       const updatedItem = req.body;
-      items = items.map((item) =>
-        item.id === updatedItem.id ? updatedItem : item
+      const putResponse = await fetch(
+        `http://localhost:8080/tasks/${updatedItem.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedItem),
+        }
       );
-      res.status(200).json(updatedItem);
+      const putResult = await putResponse.json();
+      res.status(200).json(putResult);
       break;
     case "DELETE":
       const itemId = req.body.id;
-      items = items.filter((item) => item.id !== itemId);
-      res.status(200).json({ id: itemId });
+      const deleteResponse = await fetch(
+        `http://localhost:8080/tasks?task_id=${itemId}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const deleteResult = await deleteResponse.json();
+      res.status(200).json(deleteResult);
       break;
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);

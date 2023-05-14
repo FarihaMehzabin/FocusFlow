@@ -26,9 +26,10 @@ const LoginForm = ({ onLogin }) => {
 
     if (response.ok) {
       Cookies.set("session", data.session_guid);
+      console.log("session guid is:" , data.session_guid);
       setUsername(username); 
       console.log("set username in LoginForm:", username); 
-      console.log(data)
+     
       onLogin();
     } else {
       alert(data.error);

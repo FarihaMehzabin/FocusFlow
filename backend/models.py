@@ -142,3 +142,26 @@ class SignoutResponseModel:
             "signout_status": self.signout_status,
             "message": self.message
         }
+
+class TaskResponseModel:
+    def __init__(self, task_id, title, user_id, categories, section_status, reminder = None, created_at = None, updated_at = None):
+        self.id = task_id
+        self.title = title
+        self.user_id = user_id
+        self.categories = categories.split(", ") if isinstance(categories, str) else categories
+        self.section_status = section_status
+        self.reminder = reminder
+        self.created_at = created_at
+        self.updated_at = updated_at
+        
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "user_id": self.user_id,
+            "categories": self.categories,
+            "section_status": self.section_status,
+            "reminder": self.reminder,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
