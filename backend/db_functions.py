@@ -54,11 +54,10 @@ class DbFunctions:
         with self.DbConnection() as (cursor, db_config):
             cursor.execute(statement)
             
-
             if cursor.rowcount > 0:
-                result = "deleted successfully"
+                result = True
             else:
-                result = "No matching record found"
+                result = False
 
             db_config.commit()
 

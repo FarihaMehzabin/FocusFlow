@@ -1,13 +1,14 @@
+from urllib import response
 from hashing import Hashing
 from models import (
-    UserLoginResultDataModel, UserSignupResultDataModel, CreateUserSessionResultDataModel, CheckUserSessionResultDataModel
+    UserLoginResultDataModel, UserSignupResultDataModel, CreateUserSessionResultDataModel, CheckUserSessionResultDataModel, TaskResponseModel
 )
-from db import UserDB, UserSessionDB
+from db import UserDB, UserSessionDB, TaskDB
 
 import uuid
 from hashing import Hashing
 from flask import make_response, render_template, url_for, request, jsonify
-
+import traceback
 
 
 class UserLoginService:
@@ -62,9 +63,9 @@ class UserSignoutService:
         # Remove session associated with the guid
         signout_status = self.user_session_db.remove_session(guid)
         if signout_status:
-            response = SignoutResponseModel(True, "User signed out successfully.")
+            response = (True, "User signed out successfully.")
         else:
-            response = SignoutResponseModel(False, "Signout unsuccessful. Please try again.")
+            response = (False, "Signout unsuccessful. Please try again.")
         return response
 
 
@@ -125,3 +126,44 @@ class CookieService:
         res.set_cookie('session', user_data.session_guid, samesite='None', path='/', secure = False)
 
         return res
+
+
+class TaskService:
+    def __init__(self) -> None:
+        self.task_db = TaskDB()
+        
+    
+    def get_tasks(self, user_id):
+        response = self.task_db.get_tasks(user_id)
+            
+        print("Now i am in services")
+        
+        tasks = [TaskResponseModel(*task).to_dict() for task in response]
+        
+        print(tasks)
+        
+        return tasks
+
+        
+    def add_tasks(self, task):
+        
+        response = self.task_db.add_tasks(task)
+        
+        if response[0]:
+            return response[1]
+        
+        return False
+    
+    def delete_task(self, task_id):
+        
+        try:
+        
+            response = self.task_db.delete_task(task_id)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())
