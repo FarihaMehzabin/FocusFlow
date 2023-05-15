@@ -6,9 +6,13 @@ import styles from "./TodoList.module.css";
 import Sidebar from "/components/Sidebar";
 import Image from "next/image"; 
 
-const Today = () => {
+const Today = ({ user_id }) => {
   const { todo, setTodo, loading } = useFetchTodos();
   const { addTodo, deleteTodo, editTodo } = useTodayState(todo, setTodo);
+
+   console.log("Reached today component and user_id is", user_id);
+
+   console.log("today component list of todos: ", todo);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -27,22 +31,25 @@ const Today = () => {
         <p>Add all the tasks you want to complete today!</p>
 
         <div className={`${styles.todolistSecondPart}`}>
-          <AddToToday addItem={addTodo} />
+          <AddToToday
+            addItem={(newItem, categories) =>
+              addTodo(newItem, categories, user_id)
+            }
+          />
 
           <ul>
             {todo.map((item) => (
               <Task
                 key={item.id}
                 item={item}
-                deleteItem={deleteTodo}
-                editItem={editTodo}
+                deleteItem={(item) => deleteTodo(item, user_id)}
+                editItem={(item) => editTodo(item, user_id)}
               />
             ))}
+            {todo.length === 0 && (
+              <p className={styles.emptyList}>Your todo list is empty.</p>
+            )}
           </ul>
-
-          {todo.length === 0 && (
-            <p className={styles.emptyList}>Your todo list is empty.</p>
-          )}
         </div>
       </div>
     </div>

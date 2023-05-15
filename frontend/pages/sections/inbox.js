@@ -1,4 +1,3 @@
-// pages/sections/inbox.js
 import { parseCookies } from "nookies";
 import Inbox from "../../components/Inbox/Inbox";
 

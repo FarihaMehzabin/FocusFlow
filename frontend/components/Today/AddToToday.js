@@ -7,7 +7,8 @@ const AddToToday = ({ addItem }) => {
 
   const handleSubmit = (e) => {
   e.preventDefault();
-  addItem(newItem, categories);
+    const itemCategories =categories.trim() !== "" ? categories.split(" ") : [];
+  addItem(newItem, itemCategories);
   setNewItem("");
   setCategories("");
 };

@@ -1,7 +1,7 @@
-CREATE DATABASE `FocusFlow` 
+CREATE DATABASE `FocusFlow`;
 
-CREATE TABLE `journal_entries` (
-  `id` int NOT NULL,
+CREATE TABLE FocusFlow.`journal_entries` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `moods` varchar(255) DEFAULT NULL,
   `responses` json DEFAULT NULL,
@@ -9,31 +9,31 @@ CREATE TABLE `journal_entries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-CREATE TABLE `lofi_tracks` (
-  `id` int NOT NULL,
+CREATE TABLE FocusFlow.`lofi_tracks` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `trackname` varchar(255) DEFAULT NULL,
   `track_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
-CREATE TABLE `meditation_tracks` (
-  `id` int NOT NULL,
+CREATE TABLE FocusFlow.`meditation_tracks` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `trackname` varchar(255) DEFAULT NULL,
   `track_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
-CREATE TABLE `session` (
+CREATE TABLE FocusFlow.`session` (
   `id` int NOT NULL AUTO_INCREMENT,
   `guid` varchar(255) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
-CREATE TABLE `tasks` (
+CREATE TABLE FocusFlow.`tasks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
@@ -43,9 +43,9 @@ CREATE TABLE `tasks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
-CREATE TABLE `users` (
+CREATE TABLE FocusFlow.`users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
@@ -53,4 +53,4 @@ CREATE TABLE `users` (
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) 

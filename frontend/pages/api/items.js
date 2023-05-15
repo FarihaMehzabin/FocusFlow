@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       const data = await response.json();
       res.status(200).json(data);
 
-      console.log("Fetched tasks ", data)
+      console.log("Fetched tasks ", data);
 
       break;
 
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
           date: req.body.reminder?.date || null,
           time: req.body.reminder?.time || "09:00",
         },
-        created_at: new Date().toISOString().replace('T', ' ').slice(0, 19),
+        created_at: new Date().toISOString().replace("T", " ").slice(0, 19),
         user_id: req.body.user_id,
       };
       const postResponse = await fetch("http://localhost:8080/tasks", {
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     case "PUT":
       const updatedItem = req.body;
 
-      console.log("UPdated item:",updatedItem)
+      console.log("UPdated item:", updatedItem);
 
       const putResponse = await fetch(
         `http://localhost:8080/tasks?${updatedItem.id}`,
