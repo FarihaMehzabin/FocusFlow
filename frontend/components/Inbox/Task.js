@@ -20,7 +20,12 @@ const Task = ({ item, deleteItem, editItem }) => {
     if (editing) {
       const newCategories =
         editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
-      editItem({ ...item, title: editedLabel, categories: newCategories });
+      editItem({
+        ...item,
+        updated_at: new Date().toISOString().replace("T", " ").slice(0, 19),
+        title: editedLabel,
+        categories: newCategories,
+      });
     }
     setEditing(!editing);
   };

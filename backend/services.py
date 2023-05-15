@@ -167,3 +167,16 @@ class TaskService:
         
         except Exception as e:
             print(traceback.format_exc())
+            
+    def update_task(self, task):
+        try:
+            
+            response = self.task_db.update_task(task)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())

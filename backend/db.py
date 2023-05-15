@@ -119,3 +119,24 @@ class TaskDB:
             return False
         
         return True
+
+    def update_task(self, task):
+        try:
+            categories_str = ', '.join(task['categories'])
+            
+            # Check if reminder is None and adjust the query accordingly
+            if task['reminder'] is not None:
+                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
+                    reminder = "{task['reminder']}", updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
+            else:
+                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
+                    updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
+
+            response = self.db.edit(query)
+        
+        except Exception as e:
+            print("An error occurred: ", e)
+            return False
+
+        return True
+

@@ -33,10 +33,14 @@ export default async function handler(req, res) {
       const postResult = await postResponse.json();
       res.status(201).json(postResult);
       break;
+
     case "PUT":
       const updatedItem = req.body;
+
+      console.log("UPdated item:",updatedItem)
+
       const putResponse = await fetch(
-        `http://localhost:8080/tasks/${updatedItem.id}`,
+        `http://localhost:8080/tasks?${updatedItem.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

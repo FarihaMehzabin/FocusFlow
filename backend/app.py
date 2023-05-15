@@ -139,7 +139,7 @@ def sign_out():
         return _corsify_actual_response(jsonify({"error": "An unexpected error occurred. Please contact the support team."})), 500
 
 
-@app.route('/tasks', methods=['GET', 'POST', 'DELETE'])
+@app.route('/tasks', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def handle_tasks():
     try:
     
@@ -148,8 +148,6 @@ def handle_tasks():
         if request.method == 'GET':
             user_id = request.args.get('user_id')
             
-            print(f"i am here {user_id}")
-            
             response = task_service.get_tasks(user_id)
             
             return response
@@ -157,7 +155,7 @@ def handle_tasks():
         elif request.method == 'POST':
             new_task = {
                 "title": request.json.get('title'),
-                "section_status": "Inbox",
+                "section_status": request.json.get('section_status'),
                 "categories": request.json.get('categories', ["Task"]),
                 "reminder": {
                     "date": request.json.get('reminder', {}).get('date'),
@@ -181,20 +179,37 @@ def handle_tasks():
             if response:
                 return jsonify(message = "Task deleted")
             
+        elif request.method == 'PUT':
+            updated_item = {
+                "id": request.json.get('id'),
+                "title": request.json.get('title'),
+                "categories": request.json.get('categories'),
+                "reminder": request.json.get('reminder'),
+                "updated_at": request.json.get('updated_at'),
+            }
+
+            response = task_service.update_task(updated_item)
+
+            if response:
+                return jsonify(message="Task updated")
+            else:
+                return jsonify(message="Error updating task"), 400
+
+                
     
     except Exception as err:
         print(traceback.format_exc())
 
 def _build_cors_preflight_response():
     response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3001")
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization, X-Requested-With")
     response.headers.add('Access-Control-Allow-Methods', "GET, POST, OPTIONS, PUT, DELETE")
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
 def _corsify_actual_response(response):
-    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3001")
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
     response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization, X-Requested-With")
     response.headers.add('Access-Control-Allow-Methods', "GET, POST, OPTIONS, PUT, DELETE")
     response.headers.add('Access-Control-Allow-Credentials', 'true')
