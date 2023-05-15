@@ -27,7 +27,7 @@ const Task = ({ item, deleteItem, editItem }) => {
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [reminder, setReminder] = useState(
-    item.reminder ? new Date(item.reminder.date) : null
+    item.reminder ? new Date(item.reminder) : null
   );
 
   const handleSetReminder = (date) => {
@@ -43,11 +43,9 @@ const Task = ({ item, deleteItem, editItem }) => {
 
 
   const reminderDate = item.reminder
-    ? `${format(
-        parse(item.reminder, "yyyy-MM-dd HH:mm:ss", new Date()),
-        "PP"
-      )}`
+    ? `${format(new Date(item.reminder), "PP")}`
     : "Not Set";
+
 
 
   return (

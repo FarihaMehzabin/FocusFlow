@@ -1,4 +1,3 @@
-// hooks/useFetchTodos.js
 import { useState, useEffect } from "react";
 
 export const useFetchTodos = () => {

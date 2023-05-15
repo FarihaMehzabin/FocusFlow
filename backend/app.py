@@ -20,30 +20,35 @@ login_service = UserLoginService()
 cookie_service = CookieService()
 
 
-@app.route("/user/signup", methods=["POST"])
+@app.route("/user/signup", methods=["POST", "OPTIONS"])
 def sign_up():
     try:
         
-        request_data = request.get_json()
+        if request.method == "OPTIONS":  # Respond to CORS preflight request
+            return _build_cors_preflight_response()
         
-        if not request_data:
-            return jsonify(error="Request body is empty or not in JSON format."), 400
-        
-        # Parse the request data and create a data model object
-        user_data = SignupRequestDataModel(request_data)
+        if request.method == "POST":
+            request_data = request.get_json()
+            
+            if not request_data:
+                return jsonify(error="Request body is empty or not in JSON format."), 400
+            
+            # Parse the request data and create a data model object
+            user_data = SignupRequestDataModel(request_data)
 
-        # If there was an error in parsing the request data, return the error message
-        if not user_data.isValid():
-            return jsonify(error=user_data.error_message), 400
+            # If there was an error in parsing the request data, return the error message
+            if not user_data.isValid():
+                return jsonify(error=user_data.error_message), 400
 
-        # Process the signup request using the signup service
-        signup_response = signup_service.user_signup(user_data)
+            # Process the signup request using the signup service
+            signup_response = signup_service.user_signup(user_data)
 
-        # Create a response data model object with the signup response
-        response_data = SignupResponseModel(signup_response)
+            # Create a response data model object with the signup response
+            response_data = SignupResponseModel(signup_response)
 
-        # Return the response data as JSON
-        return jsonify(response_data.to_dict())
+            # Return the response data as JSON
+            return _corsify_actual_response(jsonify(response_data.to_dict()))
+
 
     except Exception as err:
         return jsonify({"error": "An unexpected error occurred. Please contact the support team."}), 500
