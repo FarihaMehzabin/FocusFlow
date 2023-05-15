@@ -1,20 +1,15 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import { format, parse } from "date-fns";
+import { format, parseISO, formatISO , parse} from "date-fns";
 import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const Task = ({ item, deleteItem, editItem }) => {
-
   const [editing, setEditing] = useState(false);
   const [editedLabel, setEditedLabel] = useState(item.label);
   const [editedCategories, setEditedCategories] = useState(
     item.categories ? item.categories.join(" ") : ""
   );
-
-  console.log(item)
-
 
   const handleEdit = () => {
     if (editing) {
@@ -22,7 +17,7 @@ const Task = ({ item, deleteItem, editItem }) => {
         editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
       editItem({
         ...item,
-        updated_at: new Date().toISOString().replace("T", " ").slice(0, 19),
+        updated_at: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         title: editedLabel,
         categories: newCategories,
       });
@@ -32,7 +27,7 @@ const Task = ({ item, deleteItem, editItem }) => {
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [reminder, setReminder] = useState(
-    item.reminder ? new Date(item.reminder) : null
+    item.reminder ? new Date(item.reminder.date) : null
   );
 
   const handleSetReminder = (date) => {
@@ -40,17 +35,20 @@ const Task = ({ item, deleteItem, editItem }) => {
     setShowDatePicker(false);
     const updatedItem = {
       ...item,
-      reminder: { date: date.toISOString() },
+      updated_at: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      reminder: format(date, "yyyy-MM-dd HH:mm:ss"),
     };
     editItem(updatedItem);
   };
 
 
   const reminderDate = item.reminder
-    ? `${format(new Date(item.reminder), "PP")}`
+    ? `${format(
+        parse(item.reminder, "yyyy-MM-dd HH:mm:ss", new Date()),
+        "PP"
+      )}`
     : "Not Set";
 
-      console.log(reminderDate)
 
   return (
     <li className={styles.taskItem}>
@@ -80,9 +78,7 @@ const Task = ({ item, deleteItem, editItem }) => {
           </div>
         )}
         <div className={styles.reminder}>
-          <span>
-            Reminder: {reminderDate ? reminderDate : "Not Set"}
-          </span>
+          <span>Reminder: {reminderDate ? reminderDate : "Not Set"}</span>
         </div>
       </div>
       <div className={styles.actions}>
@@ -95,7 +91,7 @@ const Task = ({ item, deleteItem, editItem }) => {
         {showDatePicker && (
           <div className={styles.datePickerWrapper}>
             <DatePicker
-              selected={reminderDate}
+              selected={reminder}
               onChange={handleSetReminder}
               dateFormat="Pp"
               inline
@@ -125,7 +121,6 @@ const Task = ({ item, deleteItem, editItem }) => {
               {editing ? "💾" : "✍️"}
             </i>
           </button>
-          
         </div>
       </div>
     </li>

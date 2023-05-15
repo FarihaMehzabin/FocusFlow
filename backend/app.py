@@ -180,6 +180,11 @@ def handle_tasks():
                 return jsonify(message = "Task deleted")
             
         elif request.method == 'PUT':
+            
+            res = request.get_json()
+            
+            print(res)
+            
             updated_item = {
                 "id": request.json.get('id'),
                 "title": request.json.get('title'),

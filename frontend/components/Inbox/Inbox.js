@@ -46,11 +46,10 @@ const Inbox = ({ user_id }) => {
                 editItem={(item) => editTodo(item, user_id)}
               />
             ))}
+            {todo.length === 0 && (
+              <h3 className={styles.emptyList}>Inbox is empty.</h3>
+            )}
           </ul>
-
-          {todo.length === 0 && (
-            <p className={styles.emptyList}>Your todo list is empty.</p>
-          )}
         </div>
       </div>
     </div>
