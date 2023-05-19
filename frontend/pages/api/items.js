@@ -4,10 +4,13 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       const response = await fetch(
-        `http://localhost:8080/tasks?user_id=${req.query.user_id}`
+        `http://localhost:8080/tasks?user_id=${req.query.user_id}&section=${req.query.section}`
       );
       const data = await response.json();
       res.status(200).json(data);
+
+
+      console.log("Fetched tasks section", req.query.section);
 
       console.log("Fetched tasks ", data);
 
@@ -16,20 +19,18 @@ export default async function handler(req, res) {
     case "POST":
       const newItem = {
         title: req.body.title,
-        section_status: "Inbox",
+        section_status: req.body.section,
         categories: req.body.categories || ["Task"],
-        reminder: {
-          date: req.body.reminder?.date || null,
-          time: req.body.reminder?.time || "09:00",
-        },
         created_at: new Date().toISOString().replace("T", " ").slice(0, 19),
         user_id: req.body.user_id,
       };
+
       const postResponse = await fetch("http://localhost:8080/tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
       });
+      
       const postResult = await postResponse.json();
       res.status(201).json(postResult);
       break;
@@ -50,7 +51,8 @@ export default async function handler(req, res) {
       const putResult = await putResponse.json();
       res.status(200).json(putResult);
       break;
-    case "DELETE":
+    
+      case "DELETE":
       const itemId = req.body.id;
       const deleteResponse = await fetch(
         `http://localhost:8080/tasks?task_id=${itemId}`,

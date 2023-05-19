@@ -152,8 +152,9 @@ def handle_tasks():
         
         if request.method == 'GET':
             user_id = request.args.get('user_id')
+            section = request.args.get('section')
             
-            response = task_service.get_tasks(user_id)
+            response = task_service.get_tasks(user_id, section)
             
             return response
 

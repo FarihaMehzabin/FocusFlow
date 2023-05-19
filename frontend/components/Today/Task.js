@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { format, parseISO, formatISO, parse } from "date-fns";
 import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -7,7 +8,7 @@ const Task = ({ item, deleteItem, editItem }) => {
    const [editing, setEditing] = useState(false);
   const [editedLabel, setEditedLabel] = useState(item.label);
   const [editedCategories, setEditedCategories] = useState(
-    item.categories.join(" ")
+    item.categories ? item.categories.join(" ") : ""
   );
 
 
@@ -35,7 +36,7 @@ const Task = ({ item, deleteItem, editItem }) => {
             onChange={(e) => setEditedLabel(e.target.value)}
           />
         ) : (
-          <span className={styles.label}>{item.label}</span>
+          <span className={styles.label}>{item.title}</span>
         )}
         {editing ? (
           <input

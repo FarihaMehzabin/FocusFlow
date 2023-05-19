@@ -7,7 +7,7 @@ import Sidebar from "/components/Sidebar";
 import Image from "next/image"; 
 
 const Today = ({ user_id }) => {
-  const { todo, setTodo, loading } = useFetchTodos();
+  const { todo, setTodo, loading } = useFetchTodos(user_id);
   const { addTodo, deleteTodo, editTodo } = useTodayState(todo, setTodo);
 
    console.log("Reached today component and user_id is", user_id);

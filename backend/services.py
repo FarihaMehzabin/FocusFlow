@@ -133,8 +133,8 @@ class TaskService:
         self.task_db = TaskDB()
         
     
-    def get_tasks(self, user_id):
-        response = self.task_db.get_tasks(user_id)
+    def get_tasks(self, user_id, section):
+        response = self.task_db.get_tasks(user_id, section)
             
         print("Now i am in services")
         

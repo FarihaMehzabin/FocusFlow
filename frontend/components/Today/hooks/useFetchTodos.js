@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 
-export const useFetchTodos = () => {
+export const useFetchTodos = (user_id) => {
   const [todo, setTodo] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("/api/items");
+        const response = await fetch(
+          `/api/items?user_id=${user_id}&section=Today`
+        );
         const data = await response.json();
+
+        console.log("Today: data received in FetchTodos", data);
+
         setTodo(data);
       } catch (error) {
         console.error("Error fetching todos:", error);
@@ -17,7 +22,7 @@ export const useFetchTodos = () => {
       }
     };
     fetchTodos();
-  }, []);
+  }, [user_id]);
 
   return { todo, setTodo, loading };
 };

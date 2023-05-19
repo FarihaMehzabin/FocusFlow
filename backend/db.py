@@ -97,10 +97,10 @@ class TaskDB:
         return True, response[1]
 
         
-    def get_tasks(self, user_id):
+    def get_tasks(self, user_id, section):
         try:
             response = self.db.fetch(
-                f"SELECT * FROM tasks WHERE user_id = {user_id}"
+                f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
             )
             
         except Exception as e:

@@ -7,10 +7,10 @@ export const useFetchTodos = (user_id) => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch(`/api/items?user_id=${user_id}`);
+        const response = await fetch(`/api/items?user_id=${user_id}&section=Inbox`);
         const data = await response.json();
 
-        console.log("data received in FetchTodos",data);
+        console.log("Inobx: data received in FetchTodos",data);
 
         setTodo(data);
       } catch (error) {

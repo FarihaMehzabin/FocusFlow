@@ -1,32 +1,32 @@
-export const fetchTodos = async () => {
-  const response = await fetch("/api/items");
-  return await response.json();
+export const addItem = async (title, categories, user_id) => {
+  const response = await fetch("/api/items", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, categories, user_id, section: "Today" }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data.id; // return the id of the new item
+  }
+  throw new Error("Error adding item.");
 };
 
-export const addItem = async (newItem, categories) => {
 
-  const parsedCategories =
-      categories.trim() !== "" ? categories.split(" ") : ["Task"];
-    const response = await fetch("/api/items", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ label: newItem, categories: parsedCategories }),
-    });
-  return await response.json();
-};
-
-export const deleteItem = async (id) => {
+export const deleteItem = async (id, user_id) => {
   await fetch("/api/items", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id }),
+    body: JSON.stringify({ id, user_id }),
   });
 };
 
-export const editItem = async (updatedItem) => {
+export const editItem = async (updatedItem, user_id) => {
   await fetch("/api/items", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedItem),
+    body: JSON.stringify({ ...updatedItem, user_id }), // put updatedItem and user_id into an object
   });
 };
