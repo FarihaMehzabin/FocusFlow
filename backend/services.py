@@ -3,7 +3,7 @@ from hashing import Hashing
 from models import (
     UserLoginResultDataModel, UserSignupResultDataModel, CreateUserSessionResultDataModel, CheckUserSessionResultDataModel, TaskResponseModel
 )
-from db import UserDB, UserSessionDB, TaskDB
+from db import UserDB, UserSessionDB, TaskDB, JournalDB
 
 import uuid
 from hashing import Hashing
@@ -151,6 +151,60 @@ class TaskService:
         
         if response[0]:
             return response[1]
+        
+        return False
+    
+    def delete_task(self, task_id):
+        
+        try:
+        
+            response = self.task_db.delete_task(task_id)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())
+            
+    def update_task(self, task):
+        try:
+            
+            response = self.task_db.update_task(task)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())
+            
+            
+class JournalService:
+    def __init__(self) -> None:
+        self.journal_db = JournalDB()
+        
+    
+    def get_tasks(self, user_id, section):
+        response = self.task_db.get_tasks(user_id, section)
+            
+        print("Now i am in services")
+        
+        tasks = [TaskResponseModel(*task).to_dict() for task in response]
+        
+        print(tasks)
+        
+        return tasks
+
+        
+    def add_journal(self, task):
+        
+        response = self.journal_db.add_journal(task)
+        
+        if response:
+            return response
         
         return False
     

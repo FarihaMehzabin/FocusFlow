@@ -1,12 +1,12 @@
 import { parseCookies } from "nookies";
 import Journal from "../../components/Journal/Journal";
 
-const JournalPage = ({ isLoggedIn }) => {
+const JournalPage = ({ isLoggedIn, user_id }) => {
   if (!isLoggedIn) {
     return <div>Not authorized</div>;
   }
 
-  return <Journal />;
+  return <Journal user_id={user_id} />;
 };
 
 export async function getServerSideProps(context) {
@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
  }
 
  return {
-   props: { isLoggedIn: true }, // Will be passed to the page component as props
+   props: { isLoggedIn: true, user_id: data.user_id}, // Will be passed to the page component as props
  };
 }
 

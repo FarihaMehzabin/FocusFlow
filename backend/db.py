@@ -1,6 +1,8 @@
 from db_functions import DbFunctions 
 from hashing import Hashing
 import traceback
+import json
+
 
 class UserDB:
     def __init__(self):
@@ -95,6 +97,63 @@ class TaskDB:
             print("An error occurred: ", e)
             return False,
         return True, response[1]
+
+        
+    def get_tasks(self, user_id, section):
+        try:
+            response = self.db.fetch(
+                f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
+            )
+            
+        except Exception as e:
+            print("An error occurred: ", e)
+            return False
+        
+        return response 
+    
+    def delete_task(self, task_id):
+        try:
+            
+            response = self.db.delete(f"DELETE FROM tasks WHERE id = {task_id}")
+        
+        except Exception as e:
+            print("An error occurred: ", e)
+            return False
+        
+        return True
+
+    def update_task(self, task):
+        try:
+            categories_str = ', '.join(task['categories'])
+            
+            # Check if reminder is None and adjust the query accordingly
+            if task['reminder'] is not None:
+                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
+                    reminder = "{task['reminder']}", updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
+            else:
+                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
+                    updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
+
+            response = self.db.edit(query)
+        
+        except Exception as e:
+            print("An error occurred: ", e)
+            return False
+
+        return True
+
+class JournalDB:
+    def __init__(self):
+        self.db = DbFunctions()
+        
+    def add_journal(self, task):
+        try:
+            response = self.db.call_proc("insert_journal_entry", (task['user_id'],task['moods'],task['resulted_mood'], task['created_at'], json.dumps(task['responses'])))
+        except Exception as e:
+            print(traceback.format_exc())
+            print("An error occurred: ", e)
+            return False,
+        return True, response
 
         
     def get_tasks(self, user_id, section):

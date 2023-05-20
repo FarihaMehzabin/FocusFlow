@@ -1,3 +1,7 @@
+.Root{
+  display: flex;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -8,6 +12,8 @@
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex:1;
+  height: 100vh;
 }
 
 .heading {

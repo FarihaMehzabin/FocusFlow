@@ -5,7 +5,7 @@ from flask_api import status
 
 from models import SignupRequestDataModel , SignupResponseModel, LoginRequestDataModel, LoginResponseModel, SignoutResponseModel
 
-from services import UserLoginService, UserSignupService, SessionService, CookieService, UserSignoutService, TaskService
+from services import UserLoginService, UserSignupService, SessionService, CookieService, UserSignoutService, TaskService, JournalService
 
 config = {
     "DEBUG": True,  # some Flask specific configs
@@ -176,6 +176,75 @@ def handle_tasks():
                 return jsonify(message = "New task added", id = response), 201
             
             return jsonify(message = "Failed to add new task"), 201
+        
+        elif request.method == 'DELETE':
+            task_id = request.args.get('task_id')
+            
+            response = task_service.delete_task(task_id)
+            
+            if response:
+                return jsonify(message = "Task deleted")
+            
+        elif request.method == 'PUT':
+            
+            res = request.get_json()
+            
+            print(res)
+            
+            updated_item = {
+                "id": request.json.get('id'),
+                "title": request.json.get('title'),
+                "categories": request.json.get('categories'),
+                "reminder": request.json.get('reminder'),
+                "updated_at": request.json.get('updated_at'),
+            }
+
+            response = task_service.update_task(updated_item)
+
+            if response:
+                return jsonify(message="Task updated")
+            else:
+                return jsonify(message="Error updating task"), 400
+
+                
+    
+    except Exception as err:
+        print(traceback.format_exc())
+        
+        
+
+@app.route('/journal', methods=['GET', 'POST', 'DELETE', 'PUT'])
+def handle_journals():
+    try:
+    
+        journal_service = JournalService()
+        
+        if request.method == 'GET':
+            user_id = request.args.get('user_id')
+            section = request.args.get('section')
+            
+            response = journal_service.get_tasks(user_id, section)
+            
+            return response
+
+        elif request.method == 'POST':
+            new_task = {
+                "created_at": request.json.get('created_at'),
+                "user_id": request.json.get('user_id'),
+                "moods": request.json.get('moods'),
+                "responses": request.json.get('responses'),
+                "resulted_mood": request.json.get('resulted_mood')                          
+            }
+            
+            
+            print(new_task)
+            
+            response = journal_service.add_journal(new_task)
+            
+            if response:
+                return jsonify(message = "New journal added", id = response), 201
+            
+            return jsonify(message = "Failed to add new journal"), 400
         
         elif request.method == 'DELETE':
             task_id = request.args.get('task_id')

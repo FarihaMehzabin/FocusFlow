@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./EndMoodSelector.module.css";
+import Sidebar from "/components/Sidebar";
 
 export default function EndMoodSelector({ onMoodSelect }) {
   const [selectedMood, setSelectedMood] = useState("");
@@ -10,6 +11,8 @@ export default function EndMoodSelector({ onMoodSelect }) {
   };
 
   return (
+    <div className={styles.Root}>
+      <Sidebar/>
     <div className={styles.container}>
       <h2 className={styles.heading}>How are you feeling now?</h2>
       <label htmlFor="end-mood" className={styles.label}>
@@ -26,6 +29,7 @@ export default function EndMoodSelector({ onMoodSelect }) {
           <option value="Don't feel well">Don't feel well</option>
         </select>
       </label>
+    </div>
     </div>
   );
 }

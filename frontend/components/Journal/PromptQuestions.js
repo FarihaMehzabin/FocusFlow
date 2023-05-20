@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./PromptQuestions.module.css";
+import Sidebar from "/components/Sidebar";
 
 export default function PromptQuestions({ prompts, onSubmit }) {
   const [answers, setAnswers] = useState(Array(prompts.length).fill(""));
@@ -18,25 +19,28 @@ export default function PromptQuestions({ prompts, onSubmit }) {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Answer the following prompts:</h2>
-      <div className={styles["all-prompts-container"]}>
-        {prompts.map((prompt, index) => (
-          <div key={index} className={styles["prompt-container"]}>
-            <h3 className={styles["prompt-question"]}>{prompt}</h3>
-            <textarea
-              value={answers[index]}
-              onChange={(e) => handleAnswerChange(index, e.target.value)}
-              rows="3"
-              cols="30"
-              style={{ width: "100%", resize: "none", height: "8rem" }}
-            />
-          </div>
-        ))}
+    <div className={styles.Root}>
+      <Sidebar />
+      <div className={styles.container}>
+        <h1 className={styles.title}>Answer the following prompts</h1>
+        <div className={styles["all-prompts-container"]}>
+          {prompts.map((prompt, index) => (
+            <div key={index} className={styles["prompt-container"]}>
+              <h3 className={styles["prompt-question"]}>{prompt}</h3>
+              <textarea
+                value={answers[index]}
+                onChange={(e) => handleAnswerChange(index, e.target.value)}
+                rows="3"
+                cols="30"
+                style={{ width: "100%", resize: "none", height: "8rem" }}
+              />
+            </div>
+          ))}
+        </div>
+        <button className={styles["submit-button"]} onClick={handleSubmit}>
+          Done
+        </button>
       </div>
-      <button className={styles["submit-button"]} onClick={handleSubmit}>
-        Done
-      </button>
     </div>
   );
 }

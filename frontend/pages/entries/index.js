@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from "next/link";
 import JournalList from "../../components/Journal/JournalList";
+import Sidebar from "../../components/Sidebar";
 import { getJournalEntries, deleteJournalEntry } from '../../lib/storage';
 import styles from './index.module.css';
 
@@ -38,6 +39,8 @@ const filteredEntries = journalEntries
   console.log(filteredEntries)
 
   return (
+     <div className={styles.Root}>
+      <Sidebar />
     <div className={styles.container}>
       <h1 className={styles.heading}>Journal Entries</h1>
       <Link href="/">
@@ -81,6 +84,7 @@ const filteredEntries = journalEntries
       </div>
 
       <JournalList entries={filteredEntries} onDelete={handleDeleteEntry} />
+    </div>
     </div>
   );
 }

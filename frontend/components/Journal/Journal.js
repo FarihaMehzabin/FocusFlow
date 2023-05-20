@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import styles from "./Journal.module.css";
 import Sidebar from "/components/Sidebar";
 
-export default function Home() {
+export default function Journal({ user_id }) {
   return (
     <div className={styles.Root}>
       <Sidebar />
@@ -30,7 +30,7 @@ export default function Home() {
             Journal 📓
           </h1>
           <div className="d-flex flex-row justify-content-center mb-4">
-            <Link href="/journal">
+            <Link href={{ pathname: "/journal", query: { user_id: user_id } }}>
               <Button
                 variant="secondary"
                 className="m-2 py-3 px-5 text-uppercase font-weight-bold rounded-pill"
@@ -39,7 +39,9 @@ export default function Home() {
                 <i className="fas fa-pen mr-2"></i> Start Journaling
               </Button>
             </Link>
-            <Link href="/entries/index">
+            <Link
+              href={{ pathname: "/entries"}}
+            >
               <Button
                 variant="secondary"
                 className="m-2 py-3 px-5 text-uppercase font-weight-bold rounded-pill"
