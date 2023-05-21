@@ -63,3 +63,51 @@ CREATE TABLE FocusFlow.`users` (
   `last_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) 
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_journal_entries`(IN userId INT)
+BEGIN
+SELECT 
+    FocusFlow.journal_entries.moods,
+    FocusFlow.journal_entries.id,
+    FocusFlow.journal_entries.resulted_mood,
+    FocusFlow.journal_entries.created_at
+  FROM 
+    FocusFlow.journal_entries 
+  WHERE 
+    FocusFlow.journal_entries.user_id = userId;
+
+    END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_journal_entry`(IN p_user_id INT, IN p_moods VARCHAR(255), IN p_resulted_mood VARCHAR(255), IN p_created_at DATETIME, IN p_responses JSON)
+BEGIN
+  DECLARE v_index INT DEFAULT 1;
+  DECLARE v_count INT;
+  DECLARE v_response VARCHAR(255);
+
+  -- Insert into journal_entries
+  INSERT INTO journal_entries(user_id, moods, resulted_mood, created_at) 
+  VALUES (p_user_id, p_moods, p_resulted_mood, p_created_at);
+
+  SET @journal_id = LAST_INSERT_ID();
+
+  -- Get the count of responses
+  SET v_count = JSON_LENGTH(p_responses);
+
+  -- Loop through each response
+  WHILE v_index <= v_count DO
+    -- Extract the response
+    SET v_response = JSON_EXTRACT(p_responses, CONCAT('$[', v_index - 1, ']'));
+
+    -- Insert into prompt_response
+    INSERT INTO prompt_response(journal_id, question_no, prompt_response) 
+    VALUES (@journal_id, v_index, v_response);
+
+    SET v_index = v_index + 1;
+  END WHILE;
+
+END$$
+DELIMITER ;
