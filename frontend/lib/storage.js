@@ -1,5 +1,5 @@
 const STORAGE_KEY = "journalAppEntries";
-const ID_COUNTER_KEY = 'journalEntryIdCounter';
+const ID_COUNTER_KEY = "journalEntryIdCounter";
 
 function getNextId() {
   // Get the current ID counter value from local storage
@@ -7,7 +7,7 @@ function getNextId() {
 
   // If the ID counter is not set, initialize it with 1 and return 1
   if (currentIdCounter === null) {
-    localStorage.setItem(ID_COUNTER_KEY, '1');
+    localStorage.setItem(ID_COUNTER_KEY, "1");
     return 1;
   }
 
@@ -27,7 +27,6 @@ export function saveJournalEntry(entry) {
 }
 
 export function getJournalEntries() {
-  
   const storedEntries = localStorage.getItem(STORAGE_KEY);
   if (storedEntries) {
     return JSON.parse(storedEntries);
@@ -37,14 +36,12 @@ export function getJournalEntries() {
 }
 
 export function updateJournalEntry(index, updatedEntry) {
-
   const currentEntries = getJournalEntries();
   currentEntries[index] = updatedEntry;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(currentEntries));
 }
 
 export function deleteJournalEntry(index) {
- 
   const currentEntries = getJournalEntries();
   currentEntries.splice(index, 1);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(currentEntries));

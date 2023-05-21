@@ -1,3 +1,4 @@
+from urllib import response
 from db_functions import DbFunctions 
 from hashing import Hashing
 import traceback
@@ -156,17 +157,24 @@ class JournalDB:
         return True, response
 
         
-    def get_tasks(self, user_id, section):
+    def get_journals(self, user_id):
         try:
-            response = self.db.fetch(
-                f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
-            )
-            
+            response = self.db.call_proc_with_result("get_journal_entries", (user_id,))
         except Exception as e:
+            print(traceback.format_exc())
+            print("An error occurred: ", e)
+            return False,
+        return True, response
+    
+    
+    def get_journal_responses(self, id):
+        try:
+            response = self.db.fetch(f"SELECT id,prompt_response FROM prompt_response WHERE journal_id = {id}")
+        except Exception as e:
+            print(traceback.format_exc())
             print("An error occurred: ", e)
             return False
-        
-        return response 
+        return response
     
     def delete_task(self, task_id):
         try:
@@ -179,18 +187,11 @@ class JournalDB:
         
         return True
 
-    def update_task(self, task):
+    def update_journal(self, id, response):
         try:
-            categories_str = ', '.join(task['categories'])
             
-            # Check if reminder is None and adjust the query accordingly
-            if task['reminder'] is not None:
-                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
-                    reminder = "{task['reminder']}", updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
-            else:
-                query = f'''UPDATE tasks SET title = "{task['title']}", categories = "{categories_str}", 
-                    updated_at = "{task['updated_at']}" WHERE id = {task['id']}'''
-
+            query = f'''UPDATE prompt_response SET prompt_response = "{response}" WHERE id = {id}'''
+          
             response = self.db.edit(query)
         
         except Exception as e:

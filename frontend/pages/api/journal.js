@@ -4,14 +4,12 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       const response = await fetch(
-        `http://localhost:8080/tasks?user_id=${req.query.user_id}&section=${req.query.section}`
+        `http://localhost:8080/journal?user_id=${req.query.user_id}`
       );
       const data = await response.json();
       res.status(200).json(data);
 
-      console.log("Fetched tasks section", req.query.section);
-
-      console.log("Fetched tasks ", data);
+      console.log("Fetched journals", data);
 
       break;
 

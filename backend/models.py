@@ -165,3 +165,19 @@ class TaskResponseModel:
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
+
+class JournalResponseModel:
+    def __init__(self, initial_moods, id, resulted_mood, created_at):
+        self.id = id
+        self.initial_moods = initial_moods
+        self.resulted_mood = resulted_mood
+        self.created_at = created_at
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "initial_moods": self.initial_moods,
+            "resulted_mood": self.resulted_mood,
+            "created_at": self.created_at,
+        }
+

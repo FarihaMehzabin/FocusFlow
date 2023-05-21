@@ -72,7 +72,7 @@ export default function Prompts() {
       console.error("An error occurred while adding the item:", error);
     }
 
-    router.push("sections/journal");
+    router.push("/sections/journal");
   };
 
   const getFeelingEmoji = (feeling) => {

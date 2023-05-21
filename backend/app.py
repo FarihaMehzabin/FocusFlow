@@ -221,9 +221,8 @@ def handle_journals():
         
         if request.method == 'GET':
             user_id = request.args.get('user_id')
-            section = request.args.get('section')
             
-            response = journal_service.get_tasks(user_id, section)
+            response = journal_service.get_journals(user_id)
             
             return response
 
@@ -254,29 +253,41 @@ def handle_journals():
             if response:
                 return jsonify(message = "Task deleted")
             
-        elif request.method == 'PUT':
-            
-            res = request.get_json()
-            
-            print(res)
-            
-            updated_item = {
-                "id": request.json.get('id'),
-                "title": request.json.get('title'),
-                "categories": request.json.get('categories'),
-                "reminder": request.json.get('reminder'),
-                "updated_at": request.json.get('updated_at'),
-            }
-
-            response = task_service.update_task(updated_item)
-
-            if response:
-                return jsonify(message="Task updated")
-            else:
-                return jsonify(message="Error updating task"), 400
 
                 
     
+    except Exception as err:
+        print(traceback.format_exc())
+        
+        
+@app.route('/journal/responses/<id>', methods=['GET','PUT'])
+def journal_responses(id):
+    try:
+        
+        journal_service = JournalService()
+        
+        if request.method == 'GET':
+        
+            user_id = id
+            
+            response = journal_service.get_journal_responses(id)
+            
+            return response
+        
+        elif request.method == 'PUT':
+            
+            response_id = id
+            
+            edited = request.json.get('request')
+            
+            response = journal_service.edit_journal_responses(id, edited)
+            
+            if response:
+                return jsonify(message = "journal edited"), 201
+            
+            return jsonify(message = "Failed to edit journal"), 400
+            
+            
     except Exception as err:
         print(traceback.format_exc())
 

@@ -1,6 +1,6 @@
 import JournalEntry from "./JournalEntry";
 import styles from "./JournalList.module.css";
-import Sidebar from "/components/Sidebar";
+
 
 function JournalList({ entries, onEdit, onDelete }) {
   return (

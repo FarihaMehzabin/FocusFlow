@@ -1,7 +1,7 @@
 from urllib import response
 from hashing import Hashing
 from models import (
-    UserLoginResultDataModel, UserSignupResultDataModel, CreateUserSessionResultDataModel, CheckUserSessionResultDataModel, TaskResponseModel
+    UserLoginResultDataModel, UserSignupResultDataModel, CreateUserSessionResultDataModel, CheckUserSessionResultDataModel, TaskResponseModel, JournalResponseModel
 )
 from db import UserDB, UserSessionDB, TaskDB, JournalDB
 
@@ -135,8 +135,6 @@ class TaskService:
     
     def get_tasks(self, user_id, section):
         response = self.task_db.get_tasks(user_id, section)
-            
-        print("Now i am in services")
         
         tasks = [TaskResponseModel(*task).to_dict() for task in response]
         
@@ -187,16 +185,27 @@ class JournalService:
         self.journal_db = JournalDB()
         
     
-    def get_tasks(self, user_id, section):
-        response = self.task_db.get_tasks(user_id, section)
+    def get_journals(self, user_id):
+        response = self.journal_db.get_journals(user_id)
             
-        print("Now i am in services")
+        print("Now i am in journal services, getting journals")
         
-        tasks = [TaskResponseModel(*task).to_dict() for task in response]
+        # print("the entries are " ,response[1])
         
-        print(tasks)
+        journals = [JournalResponseModel(*journal).to_dict() for journal in response[1]]
         
-        return tasks
+        print(journals)
+        
+        return journals
+    
+    def get_journal_responses(self, id):
+        response = self.journal_db.get_journal_responses(id)
+            
+        print("getting journal responses")
+        
+        print("the responses are " ,response)
+        
+        return response
 
         
     def add_journal(self, task):
@@ -222,10 +231,10 @@ class JournalService:
         except Exception as e:
             print(traceback.format_exc())
             
-    def update_task(self, task):
+    def edit_journal_responses(self, id, edited_response):
         try:
             
-            response = self.task_db.update_task(task)
+            response = self.journal_db.update_journal(id, edited_response)
             
             if response:
                 return True
