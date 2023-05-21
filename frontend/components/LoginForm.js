@@ -26,6 +26,7 @@ const LoginForm = ({ onLogin }) => {
 
     if (response.ok) {
       Cookies.set("session", data.session_guid);
+      Cookies.set("username", username)
       console.log("session guid is:" , data.session_guid);
       setUsername(username); 
       console.log("set username in LoginForm:", username); 

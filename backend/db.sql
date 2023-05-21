@@ -4,12 +4,21 @@ CREATE TABLE FocusFlow.`journal_entries` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `moods` varchar(255) DEFAULT NULL,
-  `responses` json DEFAULT NULL,
   `resulted_mood` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE FocusFlow.`prompt_response` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `journal_id` int DEFAULT NULL,
+  `question_no` int DEFAULT NULL,
+  `prompt_response` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+
 
 CREATE TABLE FocusFlow.`lofi_tracks` (
   `id` int NOT NULL AUTO_INCREMENT,

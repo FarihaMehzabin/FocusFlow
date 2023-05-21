@@ -7,7 +7,7 @@
 .todoListRoot {
   font-size: 1.1rem;
   font-family: "Quicksand", sans-serif;
-  height: 100vh; /* change this to 100vh */
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;

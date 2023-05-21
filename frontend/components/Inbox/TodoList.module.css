@@ -7,9 +7,8 @@
 .todoListRoot {
   font-size: 1.1rem;
   font-family: "Quicksand", sans-serif;
-  height: 100vh; /* change this to 100vh */
+  
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
   overflow:scroll;
   
@@ -23,6 +22,8 @@
   width: 100%; /* change this to a percentage of the screen width */
   background: linear-gradient(#0CA6BC, #071E53);
   color: #FFF;
+
+  /* padding-bottom: 40rem; */
   
  
 }

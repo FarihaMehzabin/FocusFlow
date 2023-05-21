@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import UserContext from "../UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./Sidebar.module.css";
@@ -7,8 +6,9 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 
 const Sidebar = ({ isLoggedIn }) => {
-  const { username, setUsername } = useContext(UserContext);
   const router = useRouter();
+
+  const username = Cookies.get("username");
 
   const handleLogout = async () => {
 
@@ -35,11 +35,6 @@ const Sidebar = ({ isLoggedIn }) => {
       console.error(data.message);
     }
   };
-
-     
- 
-
- 
 
   return (
     <div className={styles.sidebar}>
