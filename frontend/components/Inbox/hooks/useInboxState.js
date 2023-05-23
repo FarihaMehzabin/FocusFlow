@@ -1,5 +1,10 @@
 // hooks/useInboxState.js
-import { addItem, deleteItem, editItem } from "../services/todoService";
+import {
+  addItem,
+  deleteItem,
+  editItem,
+  changeSectionStatus,
+} from "../services/todoService";
 
 export const useInboxState = (todo, setTodo) => {
   const addTodo = async (title, categories, user_id) => {
@@ -24,9 +29,17 @@ export const useInboxState = (todo, setTodo) => {
     );
   };
 
+    const moveToToday = async (item) => {
+      // Call the API or service to update the task's section status
+      await changeSectionStatus(item.id, "Inbox", "Today");
+
+      setTodo(todo.filter((t) => t.id !== item.id));
+    };
+
   return {
     addTodo,
     deleteTodo,
     editTodo,
+    moveToToday
   };
 };

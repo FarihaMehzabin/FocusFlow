@@ -4,7 +4,7 @@ import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-const Task = ({ item, deleteItem, editItem, moveToFocus}) => {
+const Task = ({ item, deleteItem, editItem, moveToFocus, moveToInbox}) => {
    const [editing, setEditing] = useState(false);
   const [editedLabel, setEditedLabel] = useState(item.label);
   const [editedCategories, setEditedCategories] = useState(
@@ -30,6 +30,10 @@ const Task = ({ item, deleteItem, editItem, moveToFocus}) => {
   const handleMoveToFocus = () => {
     moveToFocus(item); // Call the moveToFocus function and pass the item
   };
+
+    const handleMoveToInbox = () => {
+      moveToInbox(item); // Call the moveToFocus function and pass the item
+    };
 
 
   return (
@@ -90,6 +94,7 @@ const Task = ({ item, deleteItem, editItem, moveToFocus}) => {
       </li>
       <div className={styles.sectionActions}>
         <button onClick={handleMoveToFocus}>Move to Focus</button>
+        <button onClick={handleMoveToInbox}>Move to Inbox</button>
       </div>
     </div>
   );

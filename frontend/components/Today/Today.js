@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Today = ({ user_id }) => {
   const { todo, setTodo, loading } = useFetchTodos(user_id);
-  const { addTodo, deleteTodo, editTodo, moveToFocus } = useTodayState(
+  const { addTodo, deleteTodo, editTodo, moveToFocus, moveToInbox } = useTodayState(
     todo,
     setTodo
   );
@@ -48,6 +48,7 @@ const Today = ({ user_id }) => {
                 deleteItem={(item) => deleteTodo(item, user_id)}
                 editItem={(item) => editTodo(item, user_id)}
                 moveToFocus={moveToFocus}
+                moveToInbox={moveToInbox}
               />
             ))}
             {todo.length === 0 && (

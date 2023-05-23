@@ -32,11 +32,19 @@ export const useTodayState = (todo, setTodo) => {
     setTodo(todo.filter((t) => t.id !== item.id));
   };
 
+    const moveToInbox = async (item) => {
+      // Call the API or service to update the task's section status
+      await changeSectionStatus(item.id, "Today", "Inbox");
+
+      setTodo(todo.filter((t) => t.id !== item.id));
+    };
+
   return {
     addTodo,
     deleteTodo,
     editTodo,
     moveToFocus,
+    moveToInbox,
   };
 };
 

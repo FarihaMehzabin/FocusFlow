@@ -103,6 +103,23 @@
 .chosenTask{
   padding: .5rem 2rem;
   background-color: white;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   border-radius: 30px;
+}
+
+.actions{
+  margin-bottom: 2.5rem;
+}
+
+.actions button{
+  background-color: #15348b;
+  color: white;
+  margin-right: .5rem;
+  padding: .5rem 1rem;
+  border-radius: 23px;
+}
+
+.actions button:hover{
+  background-color: #124673;
+  color: white;
 }

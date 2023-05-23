@@ -179,11 +179,32 @@ class TaskDB:
             if to_param == 'Focus':
                 response = self.db.call_proc("change_sections", (id, from_param, to_param))
                 
+            elif to_param == 'Inbox':
+                response = self.db.edit(f"""
+                UPDATE tasks
+                SET section_status = '{to_param}', reminder = NULL
+                WHERE id = {id} AND section_status = '{from_param}'
+            """)
+                
             else:
                 response = self.db.edit(f"""
                 UPDATE tasks
                 SET section_status = '{to_param}'
                 WHERE id = {id} AND section_status = '{from_param}'
+            """)
+        except Exception as e:
+            print("An error occurred: ", e)
+            return False
+
+        return True
+    
+    
+    def mark_as_completed(self, id):
+        try:  
+            response = self.db.edit(f"""
+                UPDATE tasks
+                SET section_status = 'completed'
+                WHERE id = {id}
             """)
         except Exception as e:
             print("An error occurred: ", e)

@@ -230,6 +230,23 @@ def change_section():
 
     # Then return a response
     return jsonify({'result': result}), 201
+
+
+
+@app.route('/tasks/completed', methods=['POST'])
+def task_completed():
+    
+    id_param = request.get_json()
+    
+    task_service = TaskService()
+    
+    task_service.mark_as_completed(id_param)
+
+    
+    result = f"Marked {id_param} as completed"
+
+    # Then return a response
+    return jsonify({'result': result}), 201
         
         
 

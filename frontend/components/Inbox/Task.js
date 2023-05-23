@@ -4,7 +4,7 @@ import { format, parseISO, formatISO , parse} from "date-fns";
 import styles from "./TodoList.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Task = ({ item, deleteItem, editItem }) => {
+const Task = ({ item, deleteItem, editItem, moveToToday }) => {
   const [editing, setEditing] = useState(false);
   const [editedLabel, setEditedLabel] = useState(item.label);
   const [editedCategories, setEditedCategories] = useState(
@@ -46,9 +46,14 @@ const Task = ({ item, deleteItem, editItem }) => {
     ? `${format(new Date(item.reminder), "PP")}`
     : "Not Set";
 
+    const handleMoveToToday = () => {
+      moveToToday(item); // Call the moveToFocus function and pass the item
+    };
+
 
 
   return (
+    <div>
     <li className={styles.taskItem}>
       <div className={styles.taskContent}>
         {editing ? (
@@ -122,6 +127,10 @@ const Task = ({ item, deleteItem, editItem }) => {
         </div>
       </div>
     </li>
+    <div className={styles.sectionActions}>
+        <button onClick={handleMoveToToday}>Move to Today</button>
+      </div>
+    </div>
   );
 };
 

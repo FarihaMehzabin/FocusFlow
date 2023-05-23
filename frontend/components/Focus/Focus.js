@@ -12,6 +12,7 @@ const Focus = ({user_id}) => {
   const [timerType, setTimerType] = useState("Pomodoro");
   const [initialTime, setInitialTime] = useState(25 * 60);
   const [chosenTask, setChosenTask] = useState("");
+  const [taskID, setTaskID] = useState("");
 
 
   useEffect(() => {
@@ -57,8 +58,9 @@ const Focus = ({user_id}) => {
 
       if (data.length > 0) {
         setChosenTask(data[0].title);
+        setTaskID(data[0].id)
       } else {
-        setChosenTask("No task set");
+        setChosenTask("No task set. Choose a task to focus on from Today!");
       }
     };
 
@@ -71,6 +73,25 @@ const Focus = ({user_id}) => {
     setPause(!pause);
   };
 
+  const handleTaskCompleted = async (taskId) => {
+    await fetch(`/api/task-completed`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: taskId }), 
+    });
+    setChosenTask("No task set. Choose a task to focus on from Today!");
+  };
+
+  const handleChangeSections = async (id, from, to) => {
+    await fetch(`/api/change-sections?from=${from}&to=${to}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }), 
+    });
+    setChosenTask("No task set. Choose a task to focus on from Today!");
+  };
+
+
   return (
     <div className={styles.Root}>
       <Sidebar />
@@ -79,6 +100,25 @@ const Focus = ({user_id}) => {
           <h2>Currently focusing on</h2>
         </div>
         <h4 className={styles.chosenTask}>{chosenTask}</h4>
+        {chosenTask !==
+          "No task set. Choose a task to focus on from Today!" && (
+          <div className={styles.actions}>
+            <button onClick={() => handleTaskCompleted(taskID)}>
+              Mark Task as Completed
+            </button>
+            <button
+              onClick={() => handleChangeSections(taskID, "Focus", "Today")}
+            >
+              Move to Today
+            </button>
+            <button
+              onClick={() => handleChangeSections(taskID, "Focus", "Inbox")}
+            >
+              Move to Inbox
+            </button>
+          </div>
+        )}
+
         <div className={styles.customTime}>
           <label htmlFor="customTimeInput">Custom Time (minutes):</label>
           <input

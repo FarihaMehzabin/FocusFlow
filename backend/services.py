@@ -192,6 +192,19 @@ class TaskService:
         except Exception as e:
             print(traceback.format_exc())
             
+    def mark_as_completed(self,id):
+        try:
+            
+            response = self.task_db.mark_as_completed(id)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())
+            
 class JournalService:
     def __init__(self) -> None:
         self.journal_db = JournalDB()

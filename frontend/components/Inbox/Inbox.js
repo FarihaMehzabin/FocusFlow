@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Inbox = ({ user_id }) => {
   const { todo, setTodo, loading } = useFetchTodos(user_id);
-  const { addTodo, deleteTodo, editTodo } = useInboxState(todo, setTodo);
+  const { addTodo, deleteTodo, editTodo, moveToToday } = useInboxState(todo, setTodo);
 
 
   console.log("Reached inbox component and user_id is", user_id);
@@ -44,6 +44,7 @@ const Inbox = ({ user_id }) => {
                 item={item}
                 deleteItem={(item) => deleteTodo(item, user_id)}
                 editItem={(item) => editTodo(item, user_id)}
+                moveToToday={moveToToday}
               />
             ))}
             {todo.length === 0 && (
