@@ -43,16 +43,21 @@ class UserSignupService:
         self.user_db = UserDB()
         
     def user_signup(self, user):
-        rowcount, id = self.user_db.create_user(user)
+        try:
+            rowcount, id = self.user_db.create_user(user)
 
-        if rowcount:
-            response = UserSignupResultDataModel(rowcount, f"New user signed up! Welcome :)", False, id)
-            print(response.error)
-            
-        else:
-            response = UserSignupResultDataModel(False, "Username taken. Please try again.", True)
+            if rowcount:
+                response = UserSignupResultDataModel(rowcount, "New user signed up! Welcome :)", False, id)
+                return {'status': 'success', 'data': response.to_dict()}
 
-        return response
+            else:
+                response = UserSignupResultDataModel(False, "Username taken. Please try again.", True)
+                return {'status': 'error', 'message': response.error}
+
+        except Exception as e:
+            print(traceback.format_exc())
+            raise e  # re-raise the exception after logging it
+
         
 
 class UserSignoutService:

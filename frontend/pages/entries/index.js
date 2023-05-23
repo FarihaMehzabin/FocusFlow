@@ -75,42 +75,7 @@ function Journal({ isLoggedIn, user_id }) {
           </button>
         </Link>
 
-        <div className={styles.filters}>
-          <label className={styles.label}>
-            Filter by mood:
-            <select
-              value={selectedMood}
-              onChange={(e) => setSelectedMood(e.target.value)}
-            >
-              <option value="">All moods</option>
-              <option value="😁 Happy">😁 Happy</option>
-              <option value="😔 Sad">😔 Sad</option>
-              <option value="😡 Angry">😡 Angry</option>
-              <option value="😰 Anxious">😰 Anxious</option>
-              <option value="😣 Stressed">😣 Stressed</option>
-              <option value="😌 Calm">😌 Calm</option>
-              <option value="😄 Motivated">😄 Motivated</option>
-              <option value="😮‍💨 Tired">😮‍💨 Tired</option>
-              <option value="🤩 Excited">🤩 Excited</option>
-              <option value="Bored">🥱 Bored</option>
-              <option value="🥱 Confused">😐 Confused</option>
-              <option value="😌 Content">😌 Content</option>
-              <option value="😖 Frustrated">😖 Frustrated</option>
-              <option value="🧘 Relaxed">🧘 Relaxed</option>
-              <option value="🙁 Lonely">🙁 Lonely</option>
-              <option value="😥 Overwhelmed">😥 Overwhelmed</option>
-            </select>
-          </label>
-          <label className={styles.label}>
-            Filter by date:
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
-          </label>
-        </div>
-
+        
         <JournalList
           entries={filteredEntries}
           onDelete={handleDeleteEntry}

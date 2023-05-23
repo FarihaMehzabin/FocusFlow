@@ -11,8 +11,7 @@ const Sidebar = ({ isLoggedIn }) => {
   const username = Cookies.get("username");
 
   const handleLogout = async () => {
-
-    const guid = Cookies.get('session')
+    const guid = Cookies.get("session");
     const response = await fetch("http://127.0.0.1:8080/user/logout", {
       method: "POST",
       headers: {
@@ -21,13 +20,12 @@ const Sidebar = ({ isLoggedIn }) => {
       credentials: "include",
       body: JSON.stringify({ guid }),
     });
-   
 
-     const data = await response.json();
+    const data = await response.json();
 
-     console.log(data);
+    console.log(data);
 
-       if (data.signout_status) {
+    if (data.signout_status) {
       Cookies.remove("session");
       router.push("/login"); // redirect to login page
     } else {
@@ -48,7 +46,7 @@ const Sidebar = ({ isLoggedIn }) => {
       {username ? (
         <>
           <div className={styles.username}>
-            <p>User: {username}</p>
+            <p>{username}</p>
           </div>
           <button onClick={handleLogout} className={styles.logoutButton}>
             Logout
@@ -57,33 +55,40 @@ const Sidebar = ({ isLoggedIn }) => {
       ) : null}
       <hr className={styles.hr} />
       <ul>
-        <li>
+        <li className={styles.sidebarIcon}>
           <Link href="/sections/inbox" className={styles.link}>
-            Inbox 💭
+            Inbox
           </Link>
+          <Image src="/Inbox.jpg" alt="Inbox" width={30} height={30} />
         </li>
         <hr className={styles.hr} />
-        <li>
+        <li className={styles.sidebarIcon}>
           <Link href="/sections/today" className={styles.link}>
-            Today 📆
+            Today
           </Link>
+          <Image src="/Today.jpg" alt="Inbox" width={30} height={30} />
         </li>
         <hr className={styles.hr} />
-        <li>
+        <li className={styles.sidebarIcon}>
           <Link href="/sections/focus" className={styles.link}>
-            Focus ⏰
+            Focus
           </Link>
+          <Image src="/Focus.jpg" alt="Inbox" width={30} height={30} />
         </li>
         <hr className={styles.hr} />
-        <li>
+        <li className={styles.sidebarIcon}>
           <Link href="/sections/journal" className={styles.link}>
-            Journal 📔
+            Journal
           </Link>
+          <Image src="/journal.jpg" alt="Inbox" width={30} height={30} />
         </li>
         <hr className={styles.hr} />
-        <Link href="/sections/zenzone" className={styles.link}>
-          ZenZone ⟠
-        </Link>
+        <li className={styles.sidebarIcon}>
+          <Link href="/sections/zenzone" className={styles.link}>
+            ZenZone
+          </Link>
+          <Image src="/zenzone.jpg" alt="Inbox" width={30} height={30} />
+        </li>
       </ul>
     </div>
   );

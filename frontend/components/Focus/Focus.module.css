@@ -1,10 +1,11 @@
 .Root{
   display: flex;
-  font-family: 'Playfair Display', serif;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .timer {
-  background: #0CA6BC;
+  background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -22,8 +23,8 @@
 .button {
   padding: 8px 12px;
   border-radius: 20px;
-  background-color: #071E53;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
@@ -36,15 +37,15 @@
 .countdown {
   font-size: 60px;
   font-weight: 500;
-  color: #3d5170;
+  color: #c9c9c9;
   margin-bottom: 40px;
 }
 
 .startBtn {
   padding: 10px 30px;
   border-radius: 20px;
-  background-color: #071E53;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
@@ -82,7 +83,7 @@
 
 .customTime button {
   padding: 5px 10px;
-  background-color: #15348b;
+  background-color: #7194f3;
   color: white;
   border: none;
   border-radius: 20px;
@@ -98,6 +99,7 @@
 .chosenTaskLabel{
   margin-bottom: .5rem;
   text-decoration: underline;
+  color: white;
 }
 
 .chosenTask{

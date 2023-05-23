@@ -78,11 +78,11 @@ export default function Prompts() {
   const getFeelingEmoji = (feeling) => {
     switch (feeling) {
       case "Feeling better":
-        return "⬆️";
+        return "👍";
       case "Neutral":
         return "😐";
       case "Don't feel well":
-        return "⬇️";
+        return "👎";
       default:
         return "";
     }

@@ -16,12 +16,13 @@
 }
 
 .todolist {
-	  font-family: 'Playfair Display', serif;
+font-family: 'JetBrains Mono', monospace;
 
   margin: 0; /* remove margin */
   padding: 2rem 3rem 3rem;
   width: 100%; /* change this to a percentage of the screen width */
-  background: linear-gradient(#0CA6BC, #071E53);
+  background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   color: #FFF;
   
  
@@ -30,9 +31,9 @@
 .todolistSecondPart{
 	margin: 2rem 0; /* remove margin */
   width: 100%; /* change this to a percentage of the screen width */
-  background: #071E53;
+  background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   color: #FFF;
-  box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, .1);
   display: flex; /* add display flex */
   justify-content: center; /* center the content horizontally */
   align-items: center; /* center the content vertically */

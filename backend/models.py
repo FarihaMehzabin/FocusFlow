@@ -1,3 +1,4 @@
+import re
 from flask_api import status
 from email_validator import validate_email, EmailNotValidError
 
@@ -46,18 +47,18 @@ class SignupRequestDataModel:
 
     def validate(self):
         try:
-            if not self.username or not isinstance(self.username, str) or len(self.username) < 3:
+            if not self.username or not isinstance(self.username, str) or len(self.username) < 3 or not re.match(r'^[A-Za-z0-9]+$', self.username):
                 raise ValueError("Invalid username.")
 
             if not self.password or not isinstance(self.password, str) or len(self.password) < 8:
                 raise ValueError("Invalid password. Password must be at least 8 characters.")
-            
-            if not self.first_name or not isinstance(self.first_name, str) or len(self.first_name) < 1:
+
+            if not self.first_name or not isinstance(self.first_name, str) or len(self.first_name) < 1 or not re.match(r'^[A-Za-z][A-Za-z\' ]*[A-Za-z]$', self.first_name):
                 raise ValueError("Invalid first name.")
-            
-            if not self.last_name or not isinstance(self.last_name, str) or len(self.last_name) < 1:
+
+            if not self.last_name or not isinstance(self.last_name, str) or len(self.last_name) < 1 or not re.match(r'^[A-Za-z][A-Za-z\' ]*[A-Za-z]$', self.last_name):
                 raise ValueError("Invalid last name.")
-            
+
             # Validate email
             if not self.email or not isinstance(self.email, str):
                 raise ValueError("Invalid email.")
@@ -123,13 +124,13 @@ class LoginResponseModel:
     
 class SignupResponseModel:
     def __init__(self, user):
-        self.message = user.message
-        self.error = user.error
-        self.user_id = user.user_id
-        
-        
+        self.message = user['message']
+        self.error = user['error']
+        self.user_id = user['user_id']
+
     def to_dict(self):
         return {"message": self.message, "error": self.error, "user_id": self.user_id}
+
     
 
 class SignoutResponseModel:

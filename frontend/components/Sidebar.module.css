@@ -1,12 +1,13 @@
 .sidebar {
-  width: 13%;
-  background: linear-gradient(#0CA6BC, #071E53);
+  width: 18%;
+  background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 0;
   display: flex;
   flex-direction: column;
-  font-family: 'Playfair Display', serif;
+  font-family: 'JetBrains Mono', monospace;
   padding-bottom: 38rem;
 }
 
@@ -24,23 +25,30 @@
   color: #333;
   font-size: 18px;
   border-radius: 40px;
-  margin: 1rem 0;
-  padding: .5rem 1rem ;
   
+  padding: .5rem 2rem;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem auto;
 }
 
+
 .username p {
-  margin: 0;
+  margin: 0 auto;
+  
 }
 
 .logoutButton {
   background-color: #dc3545;
   color: #fff;
   border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: .5rem 2rem;
+  border-radius: 40px;
   cursor: pointer;
   font-size: 16px;
+   width: fit-content;
+   margin: 0 auto;
 }
 
 
@@ -92,4 +100,30 @@
   height: 3px;
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
   margin: 1rem 0;
+}
+
+.image{
+  display: inline;
+}
+
+.sidebarIcon{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sidebarIcon img{
+  padding-bottom: .2rem;
+}
+/* 
+.userIcon{
+  display: flex;
+} */
+
+.userProfile{
+  margin-top: auto;
+}
+
+.sidebarContent {
+  flex-grow: 1;
 }

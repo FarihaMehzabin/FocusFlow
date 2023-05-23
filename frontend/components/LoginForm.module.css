@@ -1,11 +1,13 @@
 /* LoginForm.module.css */
 
 .loginRoot{
-  background: linear-gradient(to right,#0CA6BC, #071E53);
-  height: 100vh;
+  background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   padding-top: 13rem;
   text-align: center;
   font-family: 'Signika Negative', sans-serif;
+  padding-bottom: 23rem;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .loginRoot h1{

@@ -166,12 +166,12 @@ const Focus = ({user_id}) => {
             strokeWidth={5}
             styles={{
               path: {
-                stroke: "#071E53",
+                stroke: "white",
               },
               text: {
                 fontSize: "20px",
                 fontWeight: 500,
-                fill: "#071E53",
+                fill: "white",
               },
             }}
           />

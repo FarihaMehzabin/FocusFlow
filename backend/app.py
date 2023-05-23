@@ -28,30 +28,36 @@ def sign_up():
             return _build_cors_preflight_response()
         
         if request.method == "POST":
-            request_data = request.get_json()
-            
-            if not request_data:
-                return jsonify(error="Request body is empty or not in JSON format."), 400
-            
-            # Parse the request data and create a data model object
-            user_data = SignupRequestDataModel(request_data)
+             request_data = request.get_json()
+        
+        if not request_data:
+            return jsonify(error="Request body is empty or not in JSON format."), 400
 
-            # If there was an error in parsing the request data, return the error message
-            if not user_data.isValid():
-                return jsonify(error=user_data.error_message), 400
+        print(request_data)
+        
+        # Parse the request data and create a data model object
+        user_data = SignupRequestDataModel(request_data)
 
-            # Process the signup request using the signup service
-            signup_response = signup_service.user_signup(user_data)
+        # If there was an error in parsing the request data, return the error message
+        if not user_data.isValid():
+              print(user_data.error_message)
+              return jsonify(error=user_data.error_message), 400
 
-            # Create a response data model object with the signup response
-            response_data = SignupResponseModel(signup_response)
+        # Process the signup request using the signup service
+        signup_response = signup_service.user_signup(user_data)
 
-            # Return the response data as JSON
-            return _corsify_actual_response(jsonify(response_data.to_dict()))
+        if signup_response['status'] == 'success':
+            # If the signup was successful, we create a response data model with the returned data and return a 201 Created status code
+            response_data = SignupResponseModel(signup_response['data'])
+            return _corsify_actual_response(jsonify(response_data.to_dict())), 201
+        else:
+            # If there was an error, we return a 400 Bad Request status code and the error message
+            return jsonify(error=signup_response['message']), 400
 
 
     except Exception as err:
-        return jsonify({"error": "An unexpected error occurred. Please contact the support team."}), 500
+            print(traceback.format_exc())
+            return jsonify({"error": "An unexpected error occurred. Please contact the support team."}), 500
         
 
 @app.route("/user/login", methods=["POST", "OPTIONS"])
