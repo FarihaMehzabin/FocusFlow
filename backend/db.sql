@@ -111,3 +111,22 @@ BEGIN
 
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_and_update_tasks`(IN given_user_id INT)
+BEGIN
+  -- Update tasks
+  UPDATE tasks 
+  SET section_status = 'Today'
+  WHERE user_id = given_user_id AND section_status = 'Inbox' AND reminder = CURDATE();
+
+  -- Select tasks with updated section_status and created_at
+  SELECT * 
+  FROM tasks 
+  WHERE user_id = given_user_id AND section_status = 'Today';
+
+END$$
+DELIMITER ;
+
+
+
