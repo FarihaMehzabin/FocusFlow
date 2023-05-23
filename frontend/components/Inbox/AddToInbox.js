@@ -7,7 +7,7 @@ const AddToInbox = ({ addItem }) => {
 
   const handleSubmit = (e) => {
   e.preventDefault();
-  const itemCategories = categories.trim() !== "" ? categories.split(" ") : [];
+  const itemCategories = categories.trim() !== "" ? categories.split(",") : [];
   addItem(newItem, itemCategories);
   setNewItem("");
   setCategories("");
@@ -27,7 +27,7 @@ const AddToInbox = ({ addItem }) => {
         className={styles.formInput}
       />
       <label htmlFor="categories" className={styles.formLabel}>
-        Categories (separated by spaces)
+        Categories (separated by commas)
       </label>
       <input
         type="text"

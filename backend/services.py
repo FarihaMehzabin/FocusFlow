@@ -178,7 +178,19 @@ class TaskService:
         
         except Exception as e:
             print(traceback.format_exc())
+    
+    def change_sections(self,id,from_param,to_param):
+        try:
             
+            response = self.task_db.change_sections(id,from_param,to_param)
+            
+            if response:
+                return True
+            
+            return False
+        
+        except Exception as e:
+            print(traceback.format_exc())
             
 class JournalService:
     def __init__(self) -> None:

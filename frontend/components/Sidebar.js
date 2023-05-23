@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./Sidebar.module.css";
@@ -29,7 +29,6 @@ const Sidebar = ({ isLoggedIn }) => {
 
        if (data.signout_status) {
       Cookies.remove("session");
-      setUsername(null);
       router.push("/login"); // redirect to login page
     } else {
       console.error(data.message);

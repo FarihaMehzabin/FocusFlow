@@ -5,12 +5,13 @@ import "react-circular-progressbar/dist/styles.css";
 import { countdown, reset } from "./utils/FocusUtils";
 import Sidebar from "/components/Sidebar";
 
-const Focus = () => {
+const Focus = ({user_id}) => {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [pause, setPause] = useState(true);
   const [timerType, setTimerType] = useState("Pomodoro");
   const [initialTime, setInitialTime] = useState(25 * 60);
+  const [chosenTask, setChosenTask] = useState("");
 
 
   useEffect(() => {
@@ -47,6 +48,25 @@ const Focus = () => {
     setSeconds(0);
   };
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await fetch(
+        `/api/items?user_id=${user_id}&section=Focus`
+      );
+      const data = await response.json();
+
+      if (data.length > 0) {
+        setChosenTask(data[0].title);
+      } else {
+        setChosenTask("No task set");
+      }
+    };
+
+    fetchTasks();
+
+    console.log(chosenTask);
+  }, [user_id]);
+
   const handleStartPause = () => {
     setPause(!pause);
   };
@@ -55,6 +75,10 @@ const Focus = () => {
     <div className={styles.Root}>
       <Sidebar />
       <div className={styles.timer}>
+        <div className={styles.chosenTaskLabel}>
+          <h2>Currently focusing on</h2>
+        </div>
+        <h4 className={styles.chosenTask}>{chosenTask}</h4>
         <div className={styles.customTime}>
           <label htmlFor="customTimeInput">Custom Time (minutes):</label>
           <input

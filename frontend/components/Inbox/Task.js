@@ -14,7 +14,7 @@ const Task = ({ item, deleteItem, editItem }) => {
   const handleEdit = () => {
     if (editing) {
       const newCategories =
-        editedCategories.trim() !== "" ? editedCategories.split(" ") : ["Task"];
+        editedCategories.trim() !== "" ? editedCategories.split(",") : ["Task"];
       editItem({
         ...item,
         updated_at: format(new Date(), "yyyy-MM-dd HH:mm:ss"),

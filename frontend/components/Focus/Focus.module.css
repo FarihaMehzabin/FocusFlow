@@ -94,3 +94,15 @@
 .customTime button:hover {
   background-color: #45a049;
 }
+
+.chosenTaskLabel{
+  margin-bottom: .5rem;
+  text-decoration: underline;
+}
+
+.chosenTask{
+  padding: .5rem 2rem;
+  background-color: white;
+  margin-bottom: 2.5rem;
+  border-radius: 30px;
+}

@@ -30,3 +30,13 @@ export const editItem = async (updatedItem, user_id) => {
     body: JSON.stringify({ ...updatedItem, user_id }), // put updatedItem and user_id into an object
   });
 };
+
+
+export const changeSectionStatus = async (id, from, to) => {
+  await fetch(`/api/change-sections?from=${from}&to=${to}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }), // put updatedItem and user_id into an object
+  });
+};
+

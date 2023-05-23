@@ -8,7 +8,10 @@ import Image from "next/image";
 
 const Today = ({ user_id }) => {
   const { todo, setTodo, loading } = useFetchTodos(user_id);
-  const { addTodo, deleteTodo, editTodo } = useTodayState(todo, setTodo);
+  const { addTodo, deleteTodo, editTodo, moveToFocus } = useTodayState(
+    todo,
+    setTodo
+  );
 
    console.log("Reached today component and user_id is", user_id);
 
@@ -44,6 +47,7 @@ const Today = ({ user_id }) => {
                 item={item}
                 deleteItem={(item) => deleteTodo(item, user_id)}
                 editItem={(item) => editTodo(item, user_id)}
+                moveToFocus={moveToFocus}
               />
             ))}
             {todo.length === 0 && (

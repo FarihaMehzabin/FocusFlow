@@ -211,6 +211,26 @@ def handle_tasks():
     except Exception as err:
         print(traceback.format_exc())
         
+
+@app.route('/tasks/change-sections', methods=['POST'])
+def change_section():
+    from_param = request.args.get('from')
+    to_param = request.args.get('to')
+    
+    id_param = request.get_json()
+
+    
+    
+    task_service = TaskService()
+    
+    task_service.change_sections(id_param, from_param, to_param)
+
+    
+    result = f"Changing section for task {id_param} from {from_param} to {to_param}"
+
+    # Then return a response
+    return jsonify({'result': result}), 201
+        
         
 
 @app.route('/journal', methods=['GET', 'POST', 'DELETE', 'PUT'])

@@ -240,3 +240,15 @@
 .dropdownContainer {
   position: absolute;
 }
+
+.sectionActions button{
+	padding: .2rem 1rem;
+	margin-bottom: 1rem;
+	background-color: #0c76bc;
+	color: white;
+}
+
+.sectionActions button:hover{
+	background-color: #0CA6BC;
+	
+}
