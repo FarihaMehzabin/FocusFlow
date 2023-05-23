@@ -21,7 +21,7 @@
   margin-bottom: 4rem;
   color: #e6ecec;
   background: #0721c5;
-  padding: 2rem;
+  padding: .5rem 2rem;
   border-radius: 15px;
 }
 
@@ -76,4 +76,28 @@
 
 .submit-button:hover {
   background-color: #FF6A00;
+}
+
+
+.backButton{
+  background-color: rgb(220, 236, 246);
+  width: 100%;
+  max-width: 100px;
+  padding: 0.5rem 1rem;
+  
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  color: rgb(0, 0, 0);
+  border-color: #0070f3;
+  align-self: flex-start;
+}
+
+.link{
+  
+  align-self: flex-start;
+}
+
+.backButton:hover{
+  background-color: #0051c9;
+  color: aliceblue;
 }

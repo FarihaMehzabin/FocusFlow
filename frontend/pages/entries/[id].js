@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import styles from "./JournalEntryPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -108,6 +109,9 @@ const JournalEntryPage = () => {
 
   return (
     <div className={styles.container}>
+      <Link href="/entries">
+        <button className={styles.backButton}>BACK</button>
+      </Link>
       <h1 className={styles.title}>Journal Entry</h1>
       <h2 className={styles.title}>{date}</h2>
       {journalEntriesResponses.map((entry, index) => {

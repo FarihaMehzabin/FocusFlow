@@ -82,9 +82,9 @@ const Sidebar = ({ isLoggedIn }) => {
           </Link>
         </li>
         <hr className={styles.hr} />
-        <li>
-          <a className={styles.link}>Zen Zone</a>
-        </li>
+        <Link href="/sections/zenzone" className={styles.link}>
+          ZenZone ⟠
+        </Link>
       </ul>
     </div>
   );

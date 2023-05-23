@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./MoodSelector.module.css";
 import Sidebar from "/components/Sidebar";
+import Link from "next/link";
 
 const allMoods = [
   "😁 Happy",
@@ -43,8 +44,11 @@ export default function MoodSelector({ onMoodSelect }) {
 
   return (
     <div className={styles.Root}>
-      <Sidebar/>
+      <Sidebar />
       <div className={styles.container}>
+        <Link href="/sections/journal" className={styles.link}>
+          <button className={styles.backButton}>BACK</button>
+        </Link>
         <h1 className={styles.title}>Select Your Moods</h1>
         <div className={styles.row}>
           <div className={styles.column}>

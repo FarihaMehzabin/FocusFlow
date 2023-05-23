@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import styles from "./PromptQuestions.module.css";
 import Sidebar from "/components/Sidebar";
 
@@ -22,6 +23,9 @@ export default function PromptQuestions({ prompts, onSubmit }) {
     <div className={styles.Root}>
       <Sidebar />
       <div className={styles.container}>
+        <Link href="/journal" className={styles.link}>
+          <button className={styles.backButton}>BACK</button>
+        </Link>
         <h1 className={styles.title}>Answer the following prompts</h1>
         <div className={styles["all-prompts-container"]}>
           {prompts.map((prompt, index) => (

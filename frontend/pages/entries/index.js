@@ -64,9 +64,14 @@ function Journal({ isLoggedIn, user_id }) {
       <Sidebar />
       <div className={styles.container}>
         <h1 className={styles.heading}>Journal Entries</h1>
-        <Link href="/sections/journal">
+        <Link href="/journal">
           <button className={styles.addJournalButton}>
             Start a new journal
+          </button>
+        </Link>
+        <Link href="/sections/journal">
+          <button className={styles.backButton}>
+           BACK
           </button>
         </Link>
 

@@ -102,9 +102,15 @@ class TaskDB:
         
     def get_tasks(self, user_id, section):
         try:
-            response = self.db.fetch(
-                f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
-            )
+            
+            if section == "Inbox":
+                response = self.db.fetch(
+                    f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
+                )
+            elif section == "Today":
+                response = self.db.fetch(
+                    f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = 'Inbox' AND reminder = CURDATE()"
+                )
             
         except Exception as e:
             print("An error occurred: ", e)

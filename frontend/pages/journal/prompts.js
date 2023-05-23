@@ -42,7 +42,7 @@ export default function Prompts() {
   };
 
   const handleMoodSelect = async (selectedMoods) => {
-    // make the function async
+  
 
     const updatedEntry = {
       ...journalEntry,
