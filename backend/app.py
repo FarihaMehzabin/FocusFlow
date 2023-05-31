@@ -1,6 +1,12 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, Response
 import traceback
 from flask_api import status
+import time
+import json
+
+from db_functions import DbFunctions
+
+db = DbFunctions()
 
 
 from models import SignupRequestDataModel , SignupResponseModel, LoginRequestDataModel, LoginResponseModel, SignoutResponseModel
@@ -173,7 +179,8 @@ def handle_tasks():
                     "date": request.json.get('reminder', {}).get('date'),
                 },
                 "created_at": request.json.get('created_at'),
-                "user_id": request.json.get('user_id')
+                "user_id": request.json.get('user_id'),
+                "priority": request.json.get('priority')
             }
             
             response = task_service.add_tasks(new_task)
@@ -334,6 +341,42 @@ def journal_responses(id):
     except Exception as err:
         print(traceback.format_exc())
 
+
+def get_current_tasks(user_id):
+    time.sleep(50)
+        
+    response = db.call_proc_with_result("send_task_notifications", (user_id,))
+    
+    print("running", response, user_id)
+
+    if response:
+        tasks = [{"title": title[0], "reminder": "2023-05-25 12:00:00"} for title in response]
+    else:
+        tasks = [] # or you can set a default value
+    
+    return tasks
+
+def event_stream(user_id):
+    while True:
+        tasks = get_current_tasks(user_id)
+        yield 'data: {}\n\n'.format(json.dumps(tasks))
+    
+        
+@app.route('/task_updates')
+def task_updates():
+    user_id = request.args.get('user_id')
+    
+    print(user_id)
+
+    def event_stream():
+        while True:
+            tasks = get_current_tasks(user_id)
+            yield 'data: {}\n\n'.format(json.dumps(tasks))
+
+    response = Response(event_stream(), mimetype="text/event-stream")
+    return _corsify_actual_response(response)  
+  
+
 def _build_cors_preflight_response():
     response = make_response()
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
@@ -352,4 +395,4 @@ def _corsify_actual_response(response):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8082, debug=True)

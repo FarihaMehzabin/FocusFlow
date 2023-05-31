@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       const response = await fetch(
-        `http://localhost:8080/journal/responses/${req.query.id}`
+        `http://localhost:8082/journal/responses/${req.query.id}`
       );
       const data = await response.json();
       res.status(200).json(data);
@@ -14,15 +14,14 @@ export default async function handler(req, res) {
       break;
 
     case "PUT":
-      
-    const updateResponse = await fetch(
-        `http://localhost:8080/journal/responses/${req.query.id}`,
+      const updateResponse = await fetch(
+        `http://localhost:8082/journal/responses/${req.query.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({request: req.body.response}),
+          body: JSON.stringify({ request: req.body.response }),
         }
       );
 

@@ -125,3 +125,15 @@ background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
   background-color: #124673;
   color: white;
 }
+
+.select {
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  appearance: none; /* Removes the default style of the dropdown */
+  background-color: #fff;
+  color: #000;
+  margin-bottom: 2rem;
+}

@@ -1,10 +1,12 @@
-export const addItem = async (title, categories, user_id) => {
+export const addItem = async (title, categories, user_id, priority) => {
+
+  console.log("Prio set to", priority); 
   const response = await fetch("/api/items", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title, categories, user_id, section: "Inbox" }),
+    body: JSON.stringify({ title, categories, user_id, section: "Inbox", priority }),
   });
 
   if (response.ok) {

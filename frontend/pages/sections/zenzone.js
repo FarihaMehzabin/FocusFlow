@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
 
   // Make a request to your Flask server to check if the GUID is valid
   const res = await fetch(
-    `http://127.0.0.1:8080/check-cookie-validity/${guid}`,
+    `http://127.0.0.1:8082/check-cookie-validity/${guid}`,
     {
       method: "POST",
       credentials: "include",

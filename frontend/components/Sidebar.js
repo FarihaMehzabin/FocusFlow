@@ -12,7 +12,7 @@ const Sidebar = ({ isLoggedIn }) => {
 
   const handleLogout = async () => {
     const guid = Cookies.get("session");
-    const response = await fetch("http://127.0.0.1:8080/user/logout", {
+    const response = await fetch("http://127.0.0.1:8082/user/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,10 +37,10 @@ const Sidebar = ({ isLoggedIn }) => {
     <div className={styles.sidebar}>
       <div className={styles.title}>
         <Image
-          src="/TaskEase.svg"
+          src="/focusflow.svg"
           alt="TaskEase Logo"
-          width={140}
-          height={40}
+          width={180}
+          height={60}
         />
       </div>
       {username ? (

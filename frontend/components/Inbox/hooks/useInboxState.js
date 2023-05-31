@@ -7,11 +7,11 @@ import {
 } from "../services/todoService";
 
 export const useInboxState = (todo, setTodo) => {
-  const addTodo = async (title, categories, user_id) => {
+  const addTodo = async (title, categories, user_id, priority) => {
     console.log("Type of new item: ", typeof title); // check the type of newItem
-    const newItemId = await addItem(title, categories, user_id);
+    const newItemId = await addItem(title, categories, user_id, priority);
     setTodo((prevTodo) => {
-      const newTodo = [...prevTodo, { title, categories, id: newItemId }]; // add new id here
+      const newTodo = [...prevTodo, { title, categories, id: newItemId, priority }]; // add new id here
       console.log("Newtodos", newTodo);
       return newTodo;
     });

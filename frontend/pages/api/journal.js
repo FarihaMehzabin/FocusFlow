@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       const response = await fetch(
-        `http://localhost:8080/journal?user_id=${req.query.user_id}`
+        `http://localhost:8082/journal?user_id=${req.query.user_id}`
       );
       const data = await response.json();
       res.status(200).json(data);
@@ -19,10 +19,10 @@ export default async function handler(req, res) {
         user_id: req.body.user_id,
         moods: req.body.initialMoods,
         resulted_mood: req.body.resulted_mood,
-        responses: req.body.responses
+        responses: req.body.responses,
       };
 
-      const postResponse = await fetch("http://localhost:8080/journal", {
+      const postResponse = await fetch("http://localhost:8082/journal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       console.log("UPdated item:", updatedItem);
 
       const putResponse = await fetch(
-        `http://localhost:8080/tasks?${updatedItem.id}`,
+        `http://localhost:8082/tasks?${updatedItem.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     case "DELETE":
       const itemId = req.body.id;
       const deleteResponse = await fetch(
-        `http://localhost:8080/tasks?task_id=${itemId}`,
+        `http://localhost:8082/tasks?task_id=${itemId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

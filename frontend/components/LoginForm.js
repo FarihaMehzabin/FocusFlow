@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import Image from 'next/image'; 
-import styles from "./LoginForm.module.css"; 
+import Image from "next/image";
+import styles from "./LoginForm.module.css";
 import UserContext from "../UserContext";
 
 const LoginForm = ({ onLogin }) => {
@@ -13,7 +13,7 @@ const LoginForm = ({ onLogin }) => {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:8080/user/login", {
+    const response = await fetch("http://127.0.0.1:8082/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,11 +26,11 @@ const LoginForm = ({ onLogin }) => {
 
     if (response.ok) {
       Cookies.set("session", data.session_guid);
-      Cookies.set("username", username)
-      console.log("session guid is:" , data.session_guid);
-      setUsername(username); 
-      console.log("set username in LoginForm:", username); 
-     
+      Cookies.set("username", username);
+      console.log("session guid is:", data.session_guid);
+      setUsername(username);
+      console.log("set username in LoginForm:", username);
+
       onLogin();
     } else {
       alert(data.error);
@@ -87,4 +87,3 @@ const LoginForm = ({ onLogin }) => {
 };
 
 export default LoginForm;
-

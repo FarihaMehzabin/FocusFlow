@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
 import Link from "next/link";
 import JournalList from "../../components/Journal/JournalList";
 import Sidebar from "../../components/Sidebar";
-import { getJournalEntries, deleteJournalEntry } from '../../lib/storage';
-import styles from './index.module.css';
+import { getJournalEntries, deleteJournalEntry } from "../../lib/storage";
+import styles from "./index.module.css";
 
 function Journal({ isLoggedIn, user_id }) {
   const [journalEntries, setJournalEntries] = useState([]);
   const [selectedMood, setSelectedMood] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-
-   if (!isLoggedIn) {
-     return <div>Not authorized</div>;
-   }
+  if (!isLoggedIn) {
+    return <div>Not authorized</div>;
+  }
 
   useEffect(() => {
     async function fetchJournalEntries() {
@@ -29,12 +28,11 @@ function Journal({ isLoggedIn, user_id }) {
 
         setJournalEntries(data);
 
-        console.log("Inside Journal entries index page ", journalEntries)
+        console.log("Inside Journal entries index page ", journalEntries);
       } catch (error) {
         console.error("There was a problem fetching journal entries:", error);
       }
     }
-
 
     fetchJournalEntries();
   }, [user_id]);
@@ -46,7 +44,8 @@ function Journal({ isLoggedIn, user_id }) {
   const filteredEntries = journalEntries.filter((entry) => {
     if (selectedMood && selectedDate) {
       return (
-        entry.initial_moods.includes(selectedMood) && entry.created_at === selectedDate
+        entry.initial_moods.includes(selectedMood) &&
+        entry.created_at === selectedDate
       );
     } else if (selectedMood) {
       return entry.initial_moods.includes(selectedMood);
@@ -70,12 +69,9 @@ function Journal({ isLoggedIn, user_id }) {
           </button>
         </Link>
         <Link href="/sections/journal">
-          <button className={styles.backButton}>
-           BACK
-          </button>
+          <button className={styles.backButton}>BACK</button>
         </Link>
 
-        
         <JournalList
           entries={filteredEntries}
           onDelete={handleDeleteEntry}
@@ -86,7 +82,6 @@ function Journal({ isLoggedIn, user_id }) {
   );
 }
 
-
 export async function getServerSideProps(context) {
   const cookies = parseCookies(context);
   const guid = cookies.session;
@@ -95,7 +90,7 @@ export async function getServerSideProps(context) {
 
   // Make a request to your Flask server to check if the GUID is valid
   const res = await fetch(
-    `http://127.0.0.1:8080/check-cookie-validity/${guid}`,
+    `http://127.0.0.1:8082/check-cookie-validity/${guid}`,
     {
       method: "POST",
       credentials: "include",
@@ -114,7 +109,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { isLoggedIn: true, user_id: data.user_id }, 
+    props: { isLoggedIn: true, user_id: data.user_id },
   };
 }
 

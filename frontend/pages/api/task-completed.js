@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       const postResponse = await fetch(
-        `http://localhost:8080/tasks/completed`,
+        `http://localhost:8082/tasks/completed`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

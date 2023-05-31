@@ -1,5 +1,12 @@
 // FocusUtils.js
-export function countdown(setMinutes, setSeconds, pause, onComplete) {
+export function countdown(
+  setMinutes,
+  setSeconds,
+  pause,
+  taskID,
+  handleTaskCompleted,
+  onComplete
+) {
   if (pause) return;
 
   const intervalId = setInterval(() => {
@@ -10,6 +17,14 @@ export function countdown(setMinutes, setSeconds, pause, onComplete) {
             return minutes - 1;
           }
           onComplete();
+          // When the countdown ends, show a confirmation dialog to the user
+          if (
+            window.confirm(
+              "Timer is over! Do you want to mark the task as completed?"
+            )
+          ) {
+            handleTaskCompleted(taskID);
+          }
           clearInterval(intervalId);
           return 0;
         });

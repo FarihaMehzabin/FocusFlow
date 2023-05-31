@@ -33,8 +33,8 @@ const Inbox = ({ user_id }) => {
 
         <div className={`${styles.todolistSecondPart}`}>
           <AddToInbox
-            addItem={(newItem, categories) =>
-              addTodo(newItem, categories, user_id)
+            addItem={(newItem, categories, priority) =>
+              addTodo(newItem, categories, user_id, priority)
             }
           />
           <ul>

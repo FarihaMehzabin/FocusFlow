@@ -1,8 +1,9 @@
-from urllib import response
 from db_functions import DbFunctions
 from hashing import Hashing
 import traceback
 import json
+import pytz
+from datetime import datetime
 
 
 class UserDB:
@@ -93,10 +94,12 @@ class TaskDB:
     def add_tasks(self, task):
         try:
             categories_str = ", ".join(task["categories"])
+            
+            print("task is", task)
 
             if task["section_status"] == "Inbox":
                 response = self.db.insert(
-                    "INSERT INTO tasks (title, user_id, categories, section_status, reminder, created_at) VALUES (%s, %s, %s, %s, %s, %s)",
+                    "INSERT INTO tasks (title, user_id, categories, section_status, reminder, created_at, priority) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                     (
                         task["title"],
                         task["user_id"],
@@ -104,6 +107,7 @@ class TaskDB:
                         task["section_status"],
                         task["reminder"]["date"],
                         task["created_at"],
+                        task["priority"]
                     ),
                 )
 
@@ -126,11 +130,11 @@ class TaskDB:
 
     def get_tasks(self, user_id, section):
         try:
-            if section == "Inbox" or section == "Focus":
+            if section == "Inbox":
                 response = self.db.fetch(
                     f"SELECT * FROM tasks WHERE user_id = {user_id} AND section_status = '{section}'"
                 )
-            elif section == "Today":
+            elif section == "Today" or section == "Focus":
                 response = self.db.call_proc_with_result(
                     "get_and_update_tasks", (user_id,)
                 )
@@ -154,6 +158,8 @@ class TaskDB:
     def update_task(self, task):
         try:
             categories_str = ", ".join(task["categories"])
+            
+            print(task['reminder'])
 
             # Check if reminder is None and adjust the query accordingly
             if task["reminder"] is not None:

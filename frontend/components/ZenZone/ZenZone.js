@@ -5,7 +5,7 @@ import Sidebar from "/components/Sidebar";
 
 // Initialize spotifyApi
 const spotifyApi = new SpotifyWebApi({
-  
+ 
   redirectUri: "http://localhost:3000/sections/inbox",
 });
 

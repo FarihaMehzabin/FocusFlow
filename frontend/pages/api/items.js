@@ -4,11 +4,10 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       const response = await fetch(
-        `http://127.0.0.1:8080/tasks?user_id=${req.query.user_id}&section=${req.query.section}`
+        `http://127.0.0.1:8082/tasks?user_id=${req.query.user_id}&section=${req.query.section}`
       );
       const data = await response.json();
       res.status(200).json(data);
-
 
       console.log("Fetched tasks section", req.query.section);
 
@@ -23,14 +22,15 @@ export default async function handler(req, res) {
         categories: req.body.categories || ["Task"],
         created_at: new Date().toISOString().replace("T", " ").slice(0, 19),
         user_id: req.body.user_id,
+        priority: req.body.priority
       };
 
-      const postResponse = await fetch("http://localhost:8080/tasks", {
+      const postResponse = await fetch("http://localhost:8082/tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
       });
-      
+
       const postResult = await postResponse.json();
       res.status(201).json(postResult);
       break;
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       console.log("UPdated item:", updatedItem);
 
       const putResponse = await fetch(
-        `http://localhost:8080/tasks?${updatedItem.id}`,
+        `http://localhost:8082/tasks?${updatedItem.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -51,11 +51,11 @@ export default async function handler(req, res) {
       const putResult = await putResponse.json();
       res.status(200).json(putResult);
       break;
-    
-      case "DELETE":
+
+    case "DELETE":
       const itemId = req.body.id;
       const deleteResponse = await fetch(
-        `http://localhost:8080/tasks?task_id=${itemId}`,
+        `http://localhost:8082/tasks?task_id=${itemId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

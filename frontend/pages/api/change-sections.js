@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       const postResponse = await fetch(
-        `http://localhost:8080/tasks/change-sections?from=${req.query.from}&to=${req.query.to}`,
+        `http://localhost:8082/tasks/change-sections?from=${req.query.from}&to=${req.query.to}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -16,7 +16,6 @@ export default async function handler(req, res) {
       res.status(201).json(postResult);
       break;
 
-    
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);

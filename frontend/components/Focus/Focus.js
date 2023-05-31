@@ -13,16 +13,10 @@ const Focus = ({user_id}) => {
   const [initialTime, setInitialTime] = useState(25 * 60);
   const [chosenTask, setChosenTask] = useState("");
   const [taskID, setTaskID] = useState("");
+  const [tasks, setTasks] = useState([]);
 
 
-  useEffect(() => {
-    if (!pause) {
-      const cleanup = countdown(setMinutes, setSeconds, pause, () =>
-        setPause(true)
-      );
-      return () => cleanup();
-    }
-  }, [pause, setMinutes, setSeconds]);
+
 
 
   const [inputMinutes, setInputMinutes] = useState("");
@@ -56,14 +50,15 @@ const Focus = ({user_id}) => {
       );
       const data = await response.json();
 
+      setTasks(data); // populate tasks state variable
+
       if (data.length > 0) {
         setChosenTask(data[0].title);
-        setTaskID(data[0].id)
+        setTaskID(data[0].id);
       } else {
         setChosenTask("No task set. Choose a task to focus on from Today!");
       }
     };
-
     fetchTasks();
 
     console.log(chosenTask);
@@ -79,7 +74,7 @@ const Focus = ({user_id}) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: taskId }), 
     });
-    setChosenTask("No task set. Choose a task to focus on from Today!");
+    setChosenTask("No task set");
   };
 
   const handleChangeSections = async (id, from, to) => {
@@ -88,8 +83,46 @@ const Focus = ({user_id}) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }), 
     });
-    setChosenTask("No task set. Choose a task to focus on from Today!");
+    setChosenTask("No task set");
   };
+
+  useEffect(() => {
+    const task = tasks.find((task) => task.id === taskID);
+    if (task) {
+      setChosenTask(task.title);
+    } else {
+      setChosenTask("No task set. Choose a task to focus on from Today!");
+    }
+  }, [taskID, tasks]);
+
+
+
+useEffect(() => {
+  if (!pause) {
+    const cleanup = countdown(
+      setMinutes,
+      setSeconds,
+      pause,
+      taskID,
+      handleTaskCompleted,
+      () => setPause(true)
+    );
+    return () => cleanup();
+  }
+}, [pause, setMinutes, setSeconds, taskID, handleTaskCompleted]);
+
+const convertPriority = (priority) => {
+  switch (priority) {
+    case 1:
+      return "Low";
+    case 2:
+      return "Medium";
+    case 3:
+      return "High";
+    default:
+      return "Unknown";
+  }
+};
 
 
   return (
@@ -118,6 +151,27 @@ const Focus = ({user_id}) => {
             </button>
           </div>
         )}
+
+        <select
+          className={styles.select}
+          value={taskID}
+          onChange={(e) => {
+            const selectedId = Number(e.target.value);
+            setTaskID(selectedId);
+            const selectedTask = tasks.find((task) => task.id === selectedId);
+            setChosenTask(selectedTask ? selectedTask.title : "");
+            // Resetting the timer
+            setPause(true);
+            setMinutes(25);
+            setSeconds(0);
+          }}
+        >
+          {tasks.map((task) => (
+            <option key={task.id} value={task.id}>
+              {task.title} - Priority: {convertPriority(task.priority)}
+            </option>
+          ))}
+        </select>
 
         <div className={styles.customTime}>
           <label htmlFor="customTimeInput">Custom Time (minutes):</label>

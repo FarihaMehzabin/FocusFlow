@@ -48,11 +48,13 @@ CREATE TABLE FocusFlow.`tasks` (
   `user_id` int DEFAULT NULL,
   `categories` varchar(255) DEFAULT NULL,
   `section_status` varchar(255) DEFAULT NULL COMMENT 'which section it belongs to',
-  `reminder` date DEFAULT NULL,
+  `reminder` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `reminder_sent` varchar(45) DEFAULT 'No',
+  `priority` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ;
+) 
 
 CREATE TABLE FocusFlow.`users` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -129,4 +131,44 @@ END$$
 DELIMITER ;
 
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `send_task_notifications`(IN user_id_param INT)
+BEGIN
+  DECLARE current_minute DATETIME;
+  DECLARE next_minute DATETIME;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    -- error occurred, get the details
+    GET DIAGNOSTICS CONDITION 1
+      @sqlstate = RETURNED_SQLSTATE, 
+      @errno = MYSQL_ERRNO, 
+      @text = MESSAGE_TEXT;
+ 
+    -- Print error details
+    SELECT @sqlstate, @errno, @text;
+ 
+    -- Reraise the error
+    RESIGNAL;
+  END;
+  
+  SET current_minute = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:00");
+  SET next_minute = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 1 MINUTE), "%Y-%m-%d %H:%i:00");
+  
+  -- Select tasks for which notifications should be sent
+  SELECT title
+  FROM FocusFlow.tasks
+  WHERE reminder >= current_minute
+    AND reminder < next_minute
+    AND reminder_sent = 'No'
+    AND user_id = user_id_param;
 
+  -- Update tasks and mark reminder_sent as 'Sent' for tasks that have already had their notifications sent
+  UPDATE FocusFlow.tasks
+  SET reminder_sent = 'Sent'
+  WHERE reminder >= current_minute
+    AND reminder < next_minute
+    AND reminder_sent = 'No'
+    AND user_id = user_id_param;
+    
+END$$
+DELIMITER ;

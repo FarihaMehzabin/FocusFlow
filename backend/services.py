@@ -48,7 +48,7 @@ class UserSignupService:
 
             if rowcount:
                 response = UserSignupResultDataModel(rowcount, "New user signed up! Welcome :)", False, id)
-                return {'status': 'success', 'data': response.to_dict()}
+                return {'status': 'success', 'data': response}
 
             else:
                 response = UserSignupResultDataModel(False, "Username taken. Please try again.", True)

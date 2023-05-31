@@ -85,16 +85,22 @@ class DbFunctions:
 
     def call_proc_fetch(self, proc):
         with self.DbConnection() as (cursor, db_config):
-            
-            cursor.callproc(proc)
-           
-            # Fetch and process the results
-            data = []
-            
-            for result in cursor.stored_results():
-                data.extend(result.fetchall())
+            try:
+                cursor.callproc(proc)
                 
-            return data
+                db_config.commit()
+
+                # Fetch and process the results
+                data = []
+
+                for result in cursor.stored_results():
+                    data.extend(result.fetchall())
+
+                return data
+            except Exception as e:
+                print("Error while executing stored procedure:", str(e))
+                return None
+
         
     def call_proc_with_result(self, proc, params):
         with self.DbConnection() as (cursor, db_config):
