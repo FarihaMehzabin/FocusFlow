@@ -151,7 +151,7 @@ class TaskResponseModel:
         self.user_id = user_id
         self.categories = categories.split(", ") if isinstance(categories, str) else categories
         self.section_status = section_status
-        self.reminder = reminder
+        self.reminder = reminder.strftime("%Y-%m-%d %H:%M:%S")
         self.created_at = created_at
         self.updated_at = updated_at
         self.reminder_sent = reminder_sent

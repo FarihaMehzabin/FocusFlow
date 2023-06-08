@@ -4,7 +4,13 @@ export const addItem = async (title, categories, user_id) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title, categories, user_id, section: "Today" }),
+    body: JSON.stringify({
+      title,
+      categories,
+      user_id,
+      section: "Today",
+      priority,
+    }),
   });
 
   if (response.ok) {

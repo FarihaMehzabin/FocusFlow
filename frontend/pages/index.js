@@ -16,7 +16,7 @@ export default function Home({ isLoggedIn, user_id }) {
 useEffect(() => {
   if (isLoggedIn) {
     let source = new EventSource(
-      `http://127.0.0.1:8082/task_updates?user_id=${user_id}`
+      `http://127.0.0.1:8083/task_updates?user_id=${user_id}`
     );
 
     console.log("notification is started", user_id);

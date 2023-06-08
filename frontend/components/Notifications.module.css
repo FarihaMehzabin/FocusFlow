@@ -13,6 +13,7 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  animation: nudge 1s 3s ease-out;
 }
 
 .notification h2 {
@@ -46,4 +47,51 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.notificationHeader {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  text-align: center;
+  color: #444;
+}
+
+.task {
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.taskTitle {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+.taskDateTime {
+  font-size: 1em;
+  color: #777;
+}
+
+.closeButton {
+  display: block;
+  margin: 0 auto;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+@keyframes nudge {
+  0% { transform: translateX(0); }
+  10%, 90% { transform: translateX(-10px); }
+  20%, 80% { transform: translateX(10px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+  100% { transform: translateX(0); }
 }

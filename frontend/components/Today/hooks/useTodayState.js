@@ -4,9 +4,12 @@ import { addItem, deleteItem, editItem, changeSectionStatus } from "../services/
 export const useTodayState = (todo, setTodo) => {
   const addTodo = async (title, categories, user_id) => {
     console.log("Type of new item: ", typeof title); // check the type of newItem
-    const newItemId = await addItem(title, categories, user_id);
+    const newItemId = await addItem(title, categories, user_id, priority);
     setTodo((prevTodo) => {
-      const newTodo = [...prevTodo, { title, categories, id: newItemId }]; // add new id here
+      const newTodo = [
+        ...prevTodo,
+        { title, categories, id: newItemId, priority },
+      ]; // add new id here
       console.log("Newtodos", newTodo);
       return newTodo;
     });
